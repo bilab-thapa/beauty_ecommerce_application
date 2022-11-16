@@ -1,0 +1,69 @@
+{
+  "project_info": {
+    "project_number": "152305990941",
+    "firebase_url": "https://e-com-beauty-default-rtdb.firebaseio.com",
+    "project_id": "e-com-beauty",
+    "storage_bucket": "e-com-beauty.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:152305990941:android:c60cf6491f8a621d13f5f4",
+        "android_client_info": {
+          "package_name": "com.example.beauty_e_commerce"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "152305990941-hbdun0usefqeljbj8tubsl4m8i7jssp6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDjap9Wo50-Dp5dwZsm6OLdMzZO5HzXkb8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "152305990941-hbdun0usefqeljbj8tubsl4m8i7jssp6.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:152305990941:android:4ff0a6880f46a5a013f5f4",
+        "android_client_info": {
+          "package_name": "com.example.lyonbeauty"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "152305990941-hbdun0usefqeljbj8tubsl4m8i7jssp6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDjap9Wo50-Dp5dwZsm6OLdMzZO5HzXkb8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "152305990941-hbdun0usefqeljbj8tubsl4m8i7jssp6.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
