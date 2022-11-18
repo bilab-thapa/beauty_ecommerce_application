@@ -13,31 +13,47 @@ class _ProfilePageDesignState extends State<ProfilePageDesign> {
   Map<String, dynamic>? data;
   String? userName;
   String? userEmail;
+  bool isEdit = false;
 
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder(
-      stream: FirebaseFirestore.instance
-          .collection('User')
-          .where("userId", isEqualTo: auth.currentUser!.uid)
-          .snapshots(),
-      builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
-        if (snapshot.hasError) {
-          return Text('Something went wrong');
-        }
+    return Scaffold(
+        appBar: AppBar(
+          title: Text('My Profile'),
+          centerTitle: true,
+        ),
+        body: Column(
+          children: [
+            StreamBuilder(
+              stream: FirebaseFirestore.instance
+                  .collection('User')
+                  .where("userId", isEqualTo: auth.currentUser!.uid)
+                  .snapshots(),
+              builder: (BuildContext context,
+                  AsyncSnapshot<QuerySnapshot> snapshot) {
+                if (snapshot.hasError) {
+                  return Text('Something went wrong');
+                }
 
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return Text("Loading");
-        }
-        return Column(
-          children: snapshot.data!.docs.map((DocumentSnapshot document) {
-            data = document.data()! as Map<String, dynamic>;
-            return profileLayout(
-                data!['userName'], data!['userEmail'], data!['userAddress']);
-          }).toList(),
-        );
-      },
-    );
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return Text("Loading");
+                }
+                return Column(
+                  children:
+                      snapshot.data!.docs.map((DocumentSnapshot document) {
+                    data = document.data()! as Map<String, dynamic>;
+                    return Column(
+                      children: [
+                        profileLayout(data!['userName'], data!['userEmail'],
+                            data!['userAddress']),
+                      ],
+                    );
+                  }).toList(),
+                );
+              },
+            ),
+          ],
+        ));
   }
 }
 
@@ -58,9 +74,10 @@ Widget profileLayout(username, email, address) {
             ),
           ),
         ),
+        SizedBox(height: SizeConfig.screenHeight * 0.05),
         Text(username),
         Text(email),
-        Text(address)
+        Text(address),
       ],
     ),
   );
