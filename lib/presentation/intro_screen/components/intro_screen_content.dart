@@ -25,6 +25,7 @@ class IntroScreenContent extends StatelessWidget {
         Text(
           text!,
           textAlign: TextAlign.center,
+          style: TextStyle(color: ColorManager.kTextColor),
         ),
         const Spacer(
           flex: 2,

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../resources/color_manager.dart';
 import '../resources/size_config.dart';
 import 'components/intro_screen_body.dart';
 
@@ -9,8 +10,12 @@ class IntroScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     SizeConfig().init(context);
 
-    return const Scaffold(
-      body: IntroScreenBody(),
+    return Container(
+      decoration: BoxDecoration(color: ColorManager.kSecondaryColor),
+      child: const Scaffold(
+        backgroundColor: Colors.transparent,
+        body: IntroScreenBody(),
+      ),
     );
   }
 }

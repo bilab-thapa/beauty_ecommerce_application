@@ -26,16 +26,19 @@ class _SignInFormState extends State<SignInForm> {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
   bool passwordVisible = false;
+  var uid;
   void submit(context) async {
     try {
       setState(() {
         isLoading = true;
       });
+
       UserCredential? result = await FirebaseAuth.instance
           .signInWithEmailAndPassword(
               email: emailController.text, password: passwordController.text);
+      uid = result.user!.uid;
+      // debugPrint(uid);
       Navigator.pushReplacementNamed(context, Routes.homeScreenRoute);
-      debugPrint(result.user!.uid.toString());
     } on PlatformException catch (error) {
       var message = "Please Check Your Internet Connection ";
       if (error.message != null) {

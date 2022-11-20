@@ -1,23 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import 'color_manager.dart';
 
 ThemeData theme() {
   return ThemeData(
-    scaffoldBackgroundColor: ColorManager.kSecondaryColor,
-    fontFamily: "Muli",
+    scaffoldBackgroundColor: ColorManager.kPrimaryLightColor,
     appBarTheme: appBarTheme(),
     textTheme: textTheme(),
     inputDecorationTheme: inputDecorationTheme(),
     visualDensity: VisualDensity.adaptivePlatformDensity,
+    listTileTheme: ListTileThemeData(iconColor: Colors.white),
   );
 }
 
 InputDecorationTheme inputDecorationTheme() {
   OutlineInputBorder outlineInputBorder = OutlineInputBorder(
     borderRadius: BorderRadius.circular(28),
-    borderSide: BorderSide(color: ColorManager.kTextColor),
+    borderSide: BorderSide(color: ColorManager.kPrimaryColor),
     gapPadding: 10,
   );
   return InputDecorationTheme(
@@ -31,16 +32,16 @@ InputDecorationTheme inputDecorationTheme() {
 
 TextTheme textTheme() {
   return TextTheme(
-    bodyText1: TextStyle(color: ColorManager.kTextColor),
-    bodyText2: TextStyle(color: ColorManager.kSecondaryTextColor),
+    bodyText1: GoogleFonts.poppins(color: ColorManager.kTextColor),
+    bodyText2: GoogleFonts.poppins(color: ColorManager.kSecondaryTextColor),
   );
 }
 
 AppBarTheme appBarTheme() {
   return AppBarTheme(
-    color: ColorManager.kSecondaryColor,
+    color: ColorManager.kPrimaryColor,
     elevation: 0,
-    iconTheme: const IconThemeData(color: Colors.black),
+    iconTheme: const IconThemeData(color: Colors.white),
     systemOverlayStyle: SystemUiOverlayStyle.dark,
     toolbarTextStyle: const TextTheme(
       headline6: TextStyle(color: Color(0XFF8B8B8B), fontSize: 18),

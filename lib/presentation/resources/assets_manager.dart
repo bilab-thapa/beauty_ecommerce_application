@@ -67,17 +67,6 @@ class ImageAssets {
   static const String visa = "$imagePath/visa.png";
   static const String wirelessHeadset = "$imagePath/wireless_headset.png";
   static const String profileImage = "$imagePath/profile_image.png";
-  static const String popularProduct_1 = "$imagePath/popular_product-1.png";
-  static const String popularProduct_2 = "$imagePath/popular_product-2.png";
-  static const String popularProduct_3 = "$imagePath/popular_product-3.png";
-  static const String ps4ConsoleBlue_1 = "$imagePath/ps4_console_blue_1.png";
-  static const String ps4ConsoleBlue_2 = "$imagePath/ps4_console_blue_2.png";
-  static const String ps4ConsoleBlue_3 = "$imagePath/ps4_console_blue_3.png";
-  static const String ps4ConsoleBlue_4 = "$imagePath/ps4_console_blue_4.png";
-  static const String ps4ConsoleWhite_1 = "$imagePath/ps4_console_white_1.png";
-  static const String ps4ConsoleWhite_2 = "$imagePath/ps4_console_white_2.png";
-  static const String ps4ConsoleWhite_3 = "$imagePath/ps4_console_white_3.png";
-  static const String ps4ConsoleWhite_4 = "$imagePath/ps4_console_white_4.png";
   static const String paypal = "$imagePath/paypal.png";
   static const String product1Image = "$imagePath/product-1-image.png";
   static const String shoes2 = "$imagePath/shoes-2.png";
