@@ -1,19 +1,20 @@
 import 'package:flutter/material.dart';
 
 class ColorManager {
-  static Color kPrimaryColor = HexColor.fromHex("#722C4E");
-  static Color kSecondaryColor = HexColor.fromHex("#E1F5FE");
-
-  static Color kSecondaryTextColor = HexColor.fromHex("#6699CC");
-  static Color kTextColor = HexColor.fromHex("#722C4E");
+  static Color kPrimaryColor = HexColor.fromHex("#7122FA");
+  static Color kSecondaryColor = HexColor.fromHex("#35B386");
+  static Color kTexNeon = HexColor.fromHex("#CA134C");
+  static Color kSecondaryTextColor = HexColor.fromHex("#722C4E");
+  static Color kTextColor = HexColor.fromHex("#FFFFFF");
+  static Color kBuy = HexColor.fromHex("#F17441");
 
   static Color black = HexColor.fromHex("#141619");
 
-  static Color kPrimaryLightColor = HexColor.fromHex("#722C4E");
+  static Color kPrimaryLightColor = HexColor.fromHex("#E68FAC");
   static const kPrimaryGradientColor = LinearGradient(
     begin: Alignment.topLeft,
     end: Alignment.bottomRight,
-    colors: [Color(0xFFFFA53E), Color(0xFFFF7643)],
+    colors: [Color(0xFFFFFFFF), Color(0xFFEE9CA7)],
   );
 // new colors
   static Color darkPrimary = HexColor.fromHex("#d17d11");
@@ -23,9 +24,8 @@ class ColorManager {
   static Color greenIconColor = HexColor.fromHex("#47B14B");
   static Color bgWhite = HexColor.fromHex("#FCFCFC");
   static Color fontColorBlack = HexColor.fromHex("#1F2933");
-  static Color error = HexColor.fromHex("#e61f34"); // red color
-  static Color filledInputColorsForForm =
-      HexColor.fromHex("#B0B8BF"); // red color
+  static Color error = HexColor.fromHex("#e61f34");
+  static Color filledInputColorsForForm = HexColor.fromHex("#B0B8BF");
 
   static const Color colorTextFieldBorder = Color(0x1F000000);
   static const Color colorInputText = Color(0xBD000000);
@@ -38,7 +38,7 @@ extension HexColor on Color {
   static Color fromHex(String hexColorString) {
     hexColorString = hexColorString.replaceAll("#", "");
     if (hexColorString.length == 6) {
-      hexColorString = "FF$hexColorString"; // 8 char with opactiy 100%
+      hexColorString = "FF$hexColorString";
     }
     return Color(int.parse(hexColorString, radix: 16));
   }
