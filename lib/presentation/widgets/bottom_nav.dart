@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../resources/color_manager.dart';
+import '../resources/routes_manager.dart';
 
 class BottomNav extends StatelessWidget {
   const BottomNav({super.key});
@@ -21,11 +22,7 @@ class BottomNav extends StatelessWidget {
                 size: iconSize,
               ),
               onPressed: () {
-                // Navigator.of(context).pushReplacement(
-                //   MaterialPageRoute(
-                //     builder: (context) => const HomeScreen(),
-                //   ),
-                // );
+                Navigator.pushNamed(context, Routes.homeScreenRoute);
               },
             ),
             IconButton(
@@ -51,11 +48,7 @@ class BottomNav extends StatelessWidget {
                 size: iconSize,
               ),
               onPressed: () {
-                // Navigator.of(context).pushReplacement(
-                //   MaterialPageRoute(
-                //     //builder: (context) => const ProfileScreen(),
-                //   ),
-                // );
+                Navigator.pushNamed(context, Routes.profileRoute);
               },
             ),
           ],

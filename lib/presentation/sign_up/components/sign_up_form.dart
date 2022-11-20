@@ -1,12 +1,16 @@
+import 'dart:async';
+
 import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:beauty_e_commerce/app/constants/app_constants.dart';
+import 'package:beauty_e_commerce/presentation/helper/keyboard_util.dart';
 import 'package:beauty_e_commerce/presentation/resources/color_manager.dart';
+import 'package:beauty_e_commerce/presentation/sign_in/components/sign_in_screen.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:get/get.dart';
 import '../../resources/assets_manager.dart';
-import '../../resources/routes_manager.dart';
 import '../../resources/size_config.dart';
 import '../../resources/strings_manager.dart';
 import '../../widgets/custom_suffix_icon.dart';
@@ -31,16 +35,22 @@ class _SignUpFormState extends State<SignUpForm> {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
   final addressController = TextEditingController();
-  void clear() async {
-    await AwesomeNotifications().createNotification(
-      content: NotificationContent(
-          id: 1, channelKey: 'Basic', title: 'Account Registration Successful'),
-    );
+  void clear() {
+    // await AwesomeNotifications().createNotification(
+    //   content: NotificationContent(
+    //       id: 1, channelKey: 'Basic', title: 'Account Registration Successful'),
+    // );
     nameController.clear();
     emailController.clear();
     passwordController.clear();
     addressController.clear();
-    Navigator.pushReplacementNamed(context, Routes.signInRoute);
+    KeyboardUtil.hideKeyboard(context);
+    Get.snackbar('Congratulations', 'Registration Successful',
+        snackPosition: SnackPosition.BOTTOM);
+    Timer(Duration(seconds: 3), () {
+      Navigator.push(
+          context, MaterialPageRoute(builder: (_) => SignInScreen()));
+    });
   }
 
   @override
@@ -89,11 +99,11 @@ class _SignUpFormState extends State<SignUpForm> {
       ));
     }
     FirebaseFirestore.instance.collection("User").doc(result!.user!.uid).set({
-      "UserName": nameController.text,
-      "UserId": result.user!.uid,
-      "UserEmail": emailController.text,
-      "UserAddress": addressController.text,
-      "UserGender": "",
+      "userName": nameController.text,
+      "userId": result.user!.uid,
+      "userEmail": emailController.text,
+      "userAddress": addressController.text,
+      "userGender": "",
     });
 
     setState(() {

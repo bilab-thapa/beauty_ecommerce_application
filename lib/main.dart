@@ -1,3 +1,4 @@
+import 'package:beauty_e_commerce/controller/data_controller.dart';
 import 'package:beauty_e_commerce/presentation/resources/routes_manager.dart';
 import 'package:beauty_e_commerce/presentation/resources/theme.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -8,6 +9,7 @@ import 'package:awesome_notifications/awesome_notifications.dart';
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
+  Get.put(DataController());
   AwesomeNotifications().initialize('resource://drawable/logo', [
     NotificationChannel(
         channelKey: "Basic",
@@ -30,7 +32,7 @@ class MyApp extends StatelessWidget {
       title: 'Beauty',
       theme: theme(),
       onGenerateRoute: Routegenerator.getRoute,
-      initialRoute: Routes.initialScreenRoute,
+      initialRoute: Routes.productAdd,
     );
   }
 }

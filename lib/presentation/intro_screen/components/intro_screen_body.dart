@@ -83,7 +83,7 @@ class IntroScreenBodyState extends State<IntroScreenBody> {
       decoration: BoxDecoration(
         color: introScreenController.currentPage.value == index
             ? ColorManager.kPrimaryColor
-            : ColorManager.iconGrey,
+            : ColorManager.kTextColor,
         borderRadius: BorderRadius.circular(3),
       ),
     );
