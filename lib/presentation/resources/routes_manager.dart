@@ -1,3 +1,4 @@
+import 'package:beauty_e_commerce/presentation/cart_screen/cart_view.dart';
 import 'package:beauty_e_commerce/presentation/home_screen/home_screen.dart';
 import 'package:beauty_e_commerce/presentation/product_add/product_add.dart';
 import 'package:beauty_e_commerce/presentation/profile/components/profile_edit.dart';
@@ -19,6 +20,7 @@ class Routes {
   static const String profileEdit = "/profileEdit";
   static const String productAdd = "/product";
   static const String categoryView = "/categoryView";
+  static const String cartView = "/cart";
 }
 
 class Routegenerator {
@@ -42,6 +44,8 @@ class Routegenerator {
         return MaterialPageRoute(builder: (_) => const ProfileEdit());
       case Routes.productAdd:
         return MaterialPageRoute(builder: (_) => const AddProductScreen());
+      case Routes.cartView:
+        return MaterialPageRoute(builder: (_) => const CartScreen());
 
       default:
         return unDefinedRoute();

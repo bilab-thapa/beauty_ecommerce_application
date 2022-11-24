@@ -39,7 +39,9 @@ class BottomNav extends StatelessWidget {
                 color: Colors.white,
                 size: iconSize,
               ),
-              onPressed: () {},
+              onPressed: () {
+                Navigator.pushNamed(context, Routes.cartView);
+              },
             ),
             IconButton(
               icon: Icon(

@@ -10,6 +10,7 @@ class AppStrings {
   //intro screen Text
   static const String introScreenText1 =
       "Welcome to E-Beauty, Let’s go shopping!";
+
   static const String introScreenText2 = "Beauty in ease at your hand";
   static const String introScreenText3 =
       "We show the easy way to shop. \nJust stay at home with us";
