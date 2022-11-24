@@ -21,7 +21,6 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   final DataController controller = Get.find();
-
   @override
   void initState() {
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
@@ -32,13 +31,13 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final GlobalKey<ScaffoldState> _key = GlobalKey<ScaffoldState>();
+    final GlobalKey<ScaffoldState> key = GlobalKey<ScaffoldState>();
 
     return Container(
       color: ColorManager.bgWhite,
       child: Scaffold(
         backgroundColor: Colors.transparent,
-        key: _key,
+        key: key,
         appBar: AppBar(
           title: Text(
             "HomeScreen",
@@ -49,21 +48,21 @@ class _HomeScreenState extends State<HomeScreen> {
         body: Container(
           height: double.infinity,
           width: double.infinity,
-          margin: EdgeInsets.symmetric(horizontal: 10),
+          margin: const EdgeInsets.symmetric(horizontal: 10),
           child: SingleChildScrollView(
             child: Column(
               children: <Widget>[
                 SizedBox(height: SizeConfig.screenHeight * 0.01),
-                BannerScreen(),
+                const BannerScreen(),
                 SizedBox(height: SizeConfig.screenHeight * 0.01),
-                Category(),
+                const Category(),
                 SizedBox(height: SizeConfig.screenHeight * 0.02),
-                Text(
+                const Text(
                   'Special For You',
                   style: TextStyle(fontSize: 26, fontWeight: FontWeight.bold),
                 ),
                 SizedBox(height: SizeConfig.screenHeight * 0.01),
-                Container(
+                const SizedBox(
                   height: 240,
                   width: double.infinity,
                   child: SpecialForYou(),
@@ -88,17 +87,15 @@ class _HomeScreenState extends State<HomeScreen> {
                     color: ColorManager.kPrimaryColor,
                   ),
                   accountName: Text(
-                    controller.userProfileData['userName'],
-                    style: TextStyle(fontSize: 18),
+                    controller.user[0].userName!,
+                    style: const TextStyle(fontSize: 18),
                   ),
-                  accountEmail: Text(controller.userProfileData['userEmail']),
-                  currentAccountPictureSize: Size.square(50),
+                  accountEmail: Text(controller.user[0].userEmail!),
+                  currentAccountPictureSize: const Size.square(50),
                   currentAccountPicture: CircleAvatar(
                     backgroundColor: ColorManager.kSecondaryColor,
                     child: Text(
-                      controller.userProfileData['userName'][0]
-                          .toString()
-                          .toUpperCase(),
+                      controller.user[0].userName![0].toString().toUpperCase(),
                       style: GoogleFonts.poppins(
                           fontSize: 30.0, color: ColorManager.black),
                     ),
@@ -107,7 +104,7 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
               ListTile(
                 leading: const Icon(Icons.person),
-                title: Text(
+                title: const Text(
                   ' My Profile ',
                 ),
                 onTap: () {
@@ -146,7 +143,7 @@ class _HomeScreenState extends State<HomeScreen> {
             ],
           ),
         ),
-        bottomNavigationBar: BottomNav(),
+        bottomNavigationBar: const BottomNav(),
       ),
     );
   }

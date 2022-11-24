@@ -45,22 +45,23 @@ class _AddProductScreenState extends State<AddProductScreen> {
       backgroundColor: Theme.of(context).primaryColor,
       appBar: AppBar(
         centerTitle: true,
-        title: Text('Add New Product'),
+        title: const Text('Add New Product'),
       ),
       body: Card(
         child: Container(
-          padding: EdgeInsets.all(10),
+          padding: const EdgeInsets.all(10),
           child: Form(
             key: _formKey,
             child: ListView(
               shrinkWrap: true,
               children: [
-                SizedBox(
+                const SizedBox(
+
                   height: 20,
                 ),
                 TextFormField(
                   keyboardType: TextInputType.text,
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                     labelText: 'Product Name',
                   ),
                   validator: (value) {
@@ -73,12 +74,12 @@ class _AddProductScreenState extends State<AddProductScreen> {
                     productData['p_name'] = value!;
                   },
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 20,
                 ),
                 TextFormField(
                   keyboardType: TextInputType.number,
-                  decoration: InputDecoration(labelText: 'Product Price'),
+                  decoration: const InputDecoration(labelText: 'Product Price'),
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return 'Product Price Required';
@@ -89,12 +90,13 @@ class _AddProductScreenState extends State<AddProductScreen> {
                     productData['p_price'] = value!;
                   },
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 20,
                 ),
                 TextFormField(
                   keyboardType: TextInputType.number,
-                  decoration: InputDecoration(labelText: 'Product Description'),
+                  decoration:
+                      const InputDecoration(labelText: 'Product Description'),
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return 'Product Price Required';
@@ -105,12 +107,13 @@ class _AddProductScreenState extends State<AddProductScreen> {
                     productData['p_desc'] = value!;
                   },
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 20,
                 ),
                 TextFormField(
                   keyboardType: TextInputType.number,
-                  decoration: InputDecoration(labelText: 'Product Category'),
+                  decoration:
+                      const InputDecoration(labelText: 'Product Category'),
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return 'Product Category Required';
@@ -121,12 +124,12 @@ class _AddProductScreenState extends State<AddProductScreen> {
                     productData['p_category'] = value!;
                   },
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 30,
                 ),
                 TextFormField(
                   keyboardType: TextInputType.number,
-                  decoration: InputDecoration(labelText: 'Database Name'),
+                  decoration: const InputDecoration(labelText: 'Database Name'),
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return 'Dataset Name Required';
@@ -137,12 +140,12 @@ class _AddProductScreenState extends State<AddProductScreen> {
                     productData['p_data'] = value!;
                   },
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 30,
                 ),
                 TextFormField(
                   keyboardType: TextInputType.number,
-                  decoration: InputDecoration(labelText: 'Video Url'),
+                  decoration: const InputDecoration(labelText: 'Video Url'),
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return 'Video Required';
@@ -153,13 +156,13 @@ class _AddProductScreenState extends State<AddProductScreen> {
                     productData['p_video'] = value!;
                   },
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 30,
                 ),
                 ProductImagePicker(_pickedImage),
                 ElevatedButton(
                   onPressed: addProduct,
-                  child: Text('Submit'),
+                  child: const Text('Submit'),
                 ),
               ],
             ),
