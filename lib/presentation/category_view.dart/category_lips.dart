@@ -17,7 +17,8 @@ class CategoryLips extends StatelessWidget {
       controller.getLipsProduct();
     });
     return Container(
-      decoration: BoxDecoration(gradient: ColorManager.kPrimaryGradientColor),
+      decoration:
+          const BoxDecoration(gradient: ColorManager.kPrimaryGradientColor),
       child: Scaffold(
         backgroundColor: Colors.transparent,
         appBar: AppBar(
@@ -30,7 +31,7 @@ class CategoryLips extends StatelessWidget {
         ),
         body: GetBuilder<DataController>(
           builder: (controller) => controller.lips.isEmpty
-              ? Center(
+              ? const Center(
                   child: Text('Loading.......'),
                 )
               : GridView.builder(
@@ -86,6 +87,7 @@ class CategoryLips extends StatelessWidget {
                                 ),
                                 Text(
                                   "${controller.lips[index].productName.capitalizeFirst}",
+                                  maxLines: 1,
                                   style: TextStyle(
                                       fontSize: 18,
                                       fontWeight: FontWeight.bold,

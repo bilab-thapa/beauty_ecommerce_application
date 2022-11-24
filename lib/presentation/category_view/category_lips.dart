@@ -7,33 +7,31 @@ import '../product_detail/detail_screen.dart';
 import '../resources/color_manager.dart';
 import '../resources/size_config.dart';
 
-class CategoryEyes extends StatelessWidget {
-  const CategoryEyes({super.key});
+class CategoryLips extends StatelessWidget {
+  const CategoryLips({super.key});
 
   @override
   Widget build(BuildContext context) {
     final DataController controller = Get.find();
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      controller.getEyesProduct();
+      controller.getLipsProduct();
     });
-
     return Container(
-      decoration:
-          const BoxDecoration(gradient: ColorManager.kPrimaryGradientColor),
+      decoration: BoxDecoration(gradient: ColorManager.kPrimaryGradientColor),
       child: Scaffold(
         backgroundColor: Colors.transparent,
         appBar: AppBar(
           centerTitle: true,
           title: Text(
-            'Eyes',
+            'Lips',
             style: GoogleFonts.poppins(
                 fontSize: 24, color: ColorManager.kTextColor),
           ),
         ),
         body: GetBuilder<DataController>(
-          builder: (controller) => controller.eyes.isEmpty
-              ? const Center(
-                  child: CircularProgressIndicator(),
+          builder: (controller) => controller.lips.isEmpty
+              ? Center(
+                  child: Text('Loading.......'),
                 )
               : GridView.builder(
                   gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
@@ -42,7 +40,7 @@ class CategoryEyes extends StatelessWidget {
                       crossAxisSpacing: 0,
                       mainAxisSpacing: 20),
                   shrinkWrap: true,
-                  itemCount: controller.eyes.length,
+                  itemCount: controller.lips.length,
                   itemBuilder: (context, index) {
                     return Padding(
                       padding: const EdgeInsets.all(8.0),
@@ -51,7 +49,7 @@ class CategoryEyes extends StatelessWidget {
                           Navigator.push(context,
                               MaterialPageRoute(builder: (_) {
                             return DetailScreen(
-                                product: controller.eyes[index]);
+                                product: controller.lips[index]);
                           }));
                         },
                         child: Card(
@@ -77,7 +75,7 @@ class CategoryEyes extends StatelessWidget {
                                         ColorManager.kSecondaryColor,
                                     child: CircleAvatar(
                                       backgroundImage: NetworkImage(
-                                        controller.eyes[index].productImage,
+                                        controller.lips[index].productImage,
                                       ),
                                       radius: 70,
                                     ),
@@ -87,14 +85,14 @@ class CategoryEyes extends StatelessWidget {
                                   height: SizeConfig.screenHeight * 0.02,
                                 ),
                                 Text(
-                                  "${controller.eyes[index].productName.capitalizeFirst}",
+                                  "${controller.lips[index].productName.capitalizeFirst}",
                                   style: TextStyle(
                                       fontSize: 18,
                                       fontWeight: FontWeight.bold,
                                       color: ColorManager.black),
                                 ),
                                 Text(
-                                  'Rs ${controller.eyes[index].productPrice.toStringAsFixed(0)}',
+                                  'Rs ${controller.lips[index].productPrice.toStringAsFixed(0)}',
                                   style: TextStyle(
                                       fontWeight: FontWeight.bold,
                                       color: ColorManager.black),

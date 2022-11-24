@@ -1,6 +1,7 @@
+
+import 'package:beauty_e_commerce/presentation/profile/components/profile_ui.dart';
 import 'package:beauty_e_commerce/presentation/resources/color_manager.dart';
 import 'package:beauty_e_commerce/presentation/resources/size_config.dart';
-import 'package:beauty_e_commerce/presentation/widgets/default_button.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
@@ -9,7 +10,7 @@ import '../../models/product_model.dart';
 class DetailScreen extends StatefulWidget {
   final Product product;
 
-  DetailScreen({required this.product});
+  const DetailScreen({required this.product});
 
   @override
   State<DetailScreen> createState() => _DetailScreenState();
@@ -22,7 +23,8 @@ class _DetailScreenState extends State<DetailScreen> {
   void initState() {
     final videoId = YoutubePlayer.convertUrlToId(widget.product.videoUrl!);
     _controller = YoutubePlayerController(
-        initialVideoId: videoId!, flags: YoutubePlayerFlags(autoPlay: false));
+        initialVideoId: videoId!,
+        flags: const YoutubePlayerFlags(autoPlay: false));
     super.initState();
   }
 
@@ -69,9 +71,8 @@ class _DetailScreenState extends State<DetailScreen> {
             clipBehavior: Clip.hardEdge,
             decoration: BoxDecoration(
               color: ColorManager.kSecondaryColor,
-              borderRadius: BorderRadius.only(
-                  topLeft: const Radius.circular(20),
-                  topRight: const Radius.circular(20)),
+              borderRadius: const BorderRadius.only(
+                  topLeft: Radius.circular(20), topRight: Radius.circular(20)),
             ),
             child: SingleChildScrollView(
               controller: scrollController,
@@ -96,7 +97,7 @@ class _DetailScreenState extends State<DetailScreen> {
                           fontSize: 34,
                           color: ColorManager.kTextColor,
                           fontWeight: FontWeight.bold)),
-                  Text('Rs ' + widget.product.productPrice.toStringAsFixed(0),
+                  Text('Rs ${widget.product.productPrice.toStringAsFixed(0)}',
                       style: GoogleFonts.poppins(
                           // fontWeight: FontWeight.bold,
                           fontSize: 24,
@@ -104,7 +105,12 @@ class _DetailScreenState extends State<DetailScreen> {
                   const SizedBox(
                     height: 15,
                   ),
-                  DefaultButton(text: 'Add to Cart'),
+                  ElevatedButton(
+                      onPressed: () {
+                        controller.addToCart(widget.product);
+                      },
+                      child: const Text('Add to Cart')),
+
                   // SizedBox(
                   //   width: SizeConfig.screenWidth * 0.5,
                   //   height: SizeConfig.screenHeight * 0.08,
@@ -123,7 +129,7 @@ class _DetailScreenState extends State<DetailScreen> {
                   //   ),
                   // ),
                   Padding(
-                    padding: EdgeInsets.symmetric(vertical: 10),
+                    padding: const EdgeInsets.symmetric(vertical: 10),
                     child: Divider(
                       color: ColorManager.white,
                       height: 4,
@@ -141,7 +147,7 @@ class _DetailScreenState extends State<DetailScreen> {
                       style: GoogleFonts.poppins(
                           fontSize: 20, color: ColorManager.kTextColor)),
                   Padding(
-                    padding: EdgeInsets.symmetric(vertical: 10),
+                    padding: const EdgeInsets.symmetric(vertical: 10),
                     child: Divider(
                       color: ColorManager.white,
                       height: 4,
