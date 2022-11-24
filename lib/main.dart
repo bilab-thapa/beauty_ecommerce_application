@@ -32,7 +32,7 @@ class MyApp extends StatelessWidget {
       title: 'Beauty',
       theme: theme(),
       onGenerateRoute: Routegenerator.getRoute,
-      initialRoute: Routes.productAdd,
+      initialRoute: Routes.signInRoute,
     );
   }
 }

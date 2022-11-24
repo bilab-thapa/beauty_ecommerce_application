@@ -25,7 +25,7 @@ class _SpecialForYouState extends State<SpecialForYou> {
     });
     return GetBuilder<DataController>(
       builder: (controller) => controller.specialProducts.isEmpty
-          ? Center(
+          ? const Center(
               child: Text('Loading.......'),
             )
           : ListView.builder(
@@ -47,7 +47,7 @@ class _SpecialForYouState extends State<SpecialForYou> {
                             elevation: 5,
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(15.0)),
-                            child: Container(
+                            child: SizedBox(
                               height: 180,
                               width: SizeConfig.screenWidth * 0.43,
                               child: ClipRRect(
