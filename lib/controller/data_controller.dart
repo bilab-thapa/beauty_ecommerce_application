@@ -7,7 +7,6 @@ import 'package:get/get.dart';
 import '../models/product_model.dart';
 import '../models/user_model.dart';
 
-
 class DataController extends GetxController {
   final FirebaseAuth auth = FirebaseAuth.instance;
   final firebaseInstance = FirebaseFirestore.instance;
@@ -23,12 +22,15 @@ class DataController extends GetxController {
   bool isCart = false;
   int cartQuantity = 1;
 
-
   List<Product> specialProducts = [];
   List<Product> lips = [];
   List<Product> hair = [];
   List<Product> face = [];
   List<Product> eyes = [];
+  List<Cart> cartProduct = [];
+  List<Cart> checkCartProduct = [];
+  bool isCart = false;
+  int cartQuantity = 1;
 
   @override
   void onReady() {
@@ -160,6 +162,73 @@ class DataController extends GetxController {
     }
   }
 
+  Future<void> addToCart(Product productdata) async {
+    final auth = FirebaseAuth.instance.currentUser!.uid;
+    final List<Cart> cartLodadedProduct = [];
+    final List<Cart> cartCheckProduct = [];
+
+    try {
+      var response = FirebaseFirestore.instance
+          .collection('User')
+          .doc(auth)
+          .collection('Cart');
+
+      var checkResponse = await firebaseInstance
+          .collection('User')
+          .doc(auth)
+          .collection('Cart')
+          .get();
+
+      for (var result in checkResponse.docs) {
+        cartLodadedProduct.add(
+          Cart(
+            productPrice: result['productPrice'],
+            productId: result['productId'],
+            productName: result['productName'],
+            image: result['productImage'],
+            productQuantity: result['productQuantity'],
+          ),
+        );
+      }
+
+      checkCartProduct.addAll(cartLodadedProduct);
+      update();
+      var contain = checkCartProduct
+          .where((element) => element.productId == productdata.productId);
+
+      if (contain.isEmpty) {
+        response.add({
+          "productName": productdata.productName,
+          "productPrice": productdata.productPrice,
+          "productId": productdata.productId,
+          "productImage": productdata.productImage,
+          "productQuantity": cartQuantity,
+        });
+      } else {
+        response
+            // .where('productId', isEqualTo: productdata.productId)
+            .doc()
+            .update(({"productQuantity": FieldValue.increment(1)}));
+
+        // ({"productQuantity": FieldValue.increment(1)});
+      }
+
+      // for (var i = 0; i <= checkCartProduct.length; i++) {
+      //   if (productdata.productId == checkCartProduct[i].productId) {
+      //     isCart == true;
+      //   }
+      //   isCart == false;
+      // }
+      // for (var i = 0; i < 1;) {
+      //   if (isCart == false) {}
+      // }
+      // print(isCart);
+      // print(response.toString());
+      // print("Firebase response1111 $response");
+    } catch (exception) {
+      // print("Error Saving Data at firestore $exception");
+    }
+  }
   Future<void> getCartProduct() async {
     cartProduct = [];
     try {
@@ -376,22 +445,18 @@ class DataController extends GetxController {
       final List<Product> lodadedProduct = [];
       var response = await firebaseInstance.collection('special').get();
 
-      if (response.docs.length > 0) {
-        response.docs.forEach(
-          (result) {
-            print(result.data());
-            print("Product ID  ${result.id}");
-            lodadedProduct.add(Product(
-              productId: result['productId'],
-              productName: result['productName'],
-              productPrice: double.parse(result['productPrice']),
-              productImage: result['productImage'],
-              productCategory: result['productCategory'],
-              productDesc: result['productDesc'],
-              videoUrl: result['productVideo'],
-            ));
-          },
-        );
+      if (response.docs.isNotEmpty) {
+        for (var result in response.docs) {
+          lodadedProduct.add(Product(
+            productId: result['productId'],
+            productName: result['productName'],
+            productPrice: double.parse(result['productPrice']),
+            productImage: result['productImage'],
+            productCategory: result['productCategory'],
+            productDesc: result['productDesc'],
+            videoUrl: result['productVideo'],
+          ));
+        }
       }
       specialProducts.addAll(lodadedProduct);
       update();
@@ -408,22 +473,20 @@ class DataController extends GetxController {
       final List<Product> liplodadedProduct = [];
       var response = await firebaseInstance.collection('lips').get();
 
-      if (response.docs.length > 0) {
-        response.docs.forEach(
-          (result) {
-            print(result.data());
-            print("Product ID  ${result.id}");
-            liplodadedProduct.add(Product(
-              productId: result['productId'],
-              productName: result['productName'],
-              productPrice: double.parse(result['productPrice']),
-              productImage: result['productImage'],
-              productCategory: result['productCategory'],
-              productDesc: result['productDesc'],
-              videoUrl: result['productVideo'],
-            ));
-          },
-        );
+      if (response.docs.isNotEmpty) {
+        for (var result in response.docs) {
+          print(result.data());
+          print("Product ID  ${result.id}");
+          liplodadedProduct.add(Product(
+            productId: result['productId'],
+            productName: result['productName'],
+            productPrice: double.parse(result['productPrice']),
+            productImage: result['productImage'],
+            productCategory: result['productCategory'],
+            productDesc: result['productDesc'],
+            videoUrl: result['productVideo'],
+          ));
+        }
       }
       lips.addAll(liplodadedProduct);
       update();
@@ -440,22 +503,20 @@ class DataController extends GetxController {
       final List<Product> hairlodadedProduct = [];
       var response = await firebaseInstance.collection('hair').get();
 
-      if (response.docs.length > 0) {
-        response.docs.forEach(
-          (result) {
-            print(result.data());
-            print("Product ID  ${result.id}");
-            hairlodadedProduct.add(Product(
-              productId: result['productId'],
-              productName: result['productName'],
-              productPrice: double.parse(result['productPrice']),
-              productImage: result['productImage'],
-              productCategory: result['productCategory'],
-              productDesc: result['productDesc'],
-              videoUrl: result['productVideo'],
-            ));
-          },
-        );
+      if (response.docs.isNotEmpty) {
+        for (var result in response.docs) {
+          print(result.data());
+          print("Product ID  ${result.id}");
+          hairlodadedProduct.add(Product(
+            productId: result['productId'],
+            productName: result['productName'],
+            productPrice: double.parse(result['productPrice']),
+            productImage: result['productImage'],
+            productCategory: result['productCategory'],
+            productDesc: result['productDesc'],
+            videoUrl: result['productVideo'],
+          ));
+        }
       }
       hair.addAll(hairlodadedProduct);
       update();
@@ -472,22 +533,20 @@ class DataController extends GetxController {
       final List<Product> facelodadedProduct = [];
       var response = await firebaseInstance.collection('face').get();
 
-      if (response.docs.length > 0) {
-        response.docs.forEach(
-          (result) {
-            print(result.data());
-            print("Product ID  ${result.id}");
-            facelodadedProduct.add(Product(
-              productId: result['productId'],
-              productName: result['productName'],
-              productPrice: double.parse(result['productPrice']),
-              productImage: result['productImage'],
-              productCategory: result['productCategory'],
-              productDesc: result['productDesc'],
-              videoUrl: result['productVideo'],
-            ));
-          },
-        );
+      if (response.docs.isNotEmpty) {
+        for (var result in response.docs) {
+          print(result.data());
+          print("Product ID  ${result.id}");
+          facelodadedProduct.add(Product(
+            productId: result['productId'],
+            productName: result['productName'],
+            productPrice: double.parse(result['productPrice']),
+            productImage: result['productImage'],
+            productCategory: result['productCategory'],
+            productDesc: result['productDesc'],
+            videoUrl: result['productVideo'],
+          ));
+        }
       }
       face.addAll(facelodadedProduct);
       update();
@@ -504,22 +563,20 @@ class DataController extends GetxController {
       final List<Product> eyeslodadedProduct = [];
       var response = await firebaseInstance.collection('face').get();
 
-      if (response.docs.length > 0) {
-        response.docs.forEach(
-          (result) {
-            print(result.data());
-            print("Product ID  ${result.id}");
-            eyeslodadedProduct.add(Product(
-              productId: result['productId'],
-              productName: result['productName'],
-              productPrice: double.parse(result['productPrice']),
-              productImage: result['productImage'],
-              productCategory: result['productCategory'],
-              productDesc: result['productDesc'],
-              videoUrl: result['productVideo'],
-            ));
-          },
-        );
+      if (response.docs.isNotEmpty) {
+        for (var result in response.docs) {
+          print(result.data());
+          print("Product ID  ${result.id}");
+          eyeslodadedProduct.add(Product(
+            productId: result['productId'],
+            productName: result['productName'],
+            productPrice: double.parse(result['productPrice']),
+            productImage: result['productImage'],
+            productCategory: result['productCategory'],
+            productDesc: result['productDesc'],
+            videoUrl: result['productVideo'],
+          ));
+        }
       }
       face.addAll(eyeslodadedProduct);
       update();

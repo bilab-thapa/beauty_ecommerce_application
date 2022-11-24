@@ -48,7 +48,6 @@ class _HomeScreenState extends State<HomeScreen> {
         body: Container(
           height: double.infinity,
           width: double.infinity,
-
           margin: const EdgeInsets.symmetric(horizontal: 10),
           child: SingleChildScrollView(
             child: Column(
