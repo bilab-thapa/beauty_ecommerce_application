@@ -21,7 +21,7 @@ class _CategoryState extends State<Category> {
       return InkWell(
         onTap: () {
           Navigator.push(context, MaterialPageRoute(builder: (_) {
-            return CategoryLips();
+            return const CategoryLips();
           }));
         },
         child: Container(
@@ -30,7 +30,7 @@ class _CategoryState extends State<Category> {
           decoration: BoxDecoration(
               color: ColorManager.kSecondaryColor,
               borderRadius: BorderRadius.circular(20)),
-          child: Center(
+          child: const Center(
             child: Text('Lips'),
           ),
         ),
@@ -41,7 +41,7 @@ class _CategoryState extends State<Category> {
       return InkWell(
         onTap: () {
           Navigator.push(context, MaterialPageRoute(builder: (_) {
-            return CategoryHair();
+            return const CategoryHair();
           }));
         },
         child: Container(
@@ -50,7 +50,7 @@ class _CategoryState extends State<Category> {
           decoration: BoxDecoration(
               color: ColorManager.kSecondaryColor,
               borderRadius: BorderRadius.circular(20)),
-          child: Center(
+          child: const Center(
             child: Text('Hair'),
           ),
         ),
@@ -61,7 +61,7 @@ class _CategoryState extends State<Category> {
       return InkWell(
         onTap: () {
           Navigator.push(context, MaterialPageRoute(builder: (_) {
-            return CategoryFace();
+            return const CategoryFace();
           }));
         },
         child: Container(
@@ -70,7 +70,7 @@ class _CategoryState extends State<Category> {
           decoration: BoxDecoration(
               color: ColorManager.kSecondaryColor,
               borderRadius: BorderRadius.circular(20)),
-          child: Center(
+          child: const Center(
             child: Text('Face'),
           ),
         ),
@@ -81,7 +81,7 @@ class _CategoryState extends State<Category> {
       return InkWell(
         onTap: () {
           Navigator.push(context, MaterialPageRoute(builder: (_) {
-            return CategoryEyes();
+            return const CategoryEyes();
           }));
         },
         child: Container(
@@ -90,7 +90,7 @@ class _CategoryState extends State<Category> {
           decoration: BoxDecoration(
               color: ColorManager.kSecondaryColor,
               borderRadius: BorderRadius.circular(20)),
-          child: Center(
+          child: const Center(
             child: Text('Eyes'),
           ),
         ),

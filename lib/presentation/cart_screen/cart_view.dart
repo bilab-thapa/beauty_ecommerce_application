@@ -1,6 +1,5 @@
+import 'package:beauty_e_commerce/presentation/widgets/bottom_nav.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
 
 import 'cart_body.dart';
 
@@ -9,8 +8,17 @@ class CartScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      body: CartBody(),
+    return Scaffold(
+      body: Stack(children: [
+        Container(),
+        const CartBody(),
+        Container(),
+        // const Positioned(
+        //   bottom: 0,
+        //   child: SubTotal(),
+        // ),
+      ]),
+      bottomNavigationBar: const BottomNav(),
     );
   }
 }
