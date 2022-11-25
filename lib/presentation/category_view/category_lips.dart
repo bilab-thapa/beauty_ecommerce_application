@@ -32,7 +32,7 @@ class CategoryLips extends StatelessWidget {
         body: GetBuilder<DataController>(
           builder: (controller) => controller.lips.isEmpty
               ? const Center(
-                  child: Text('Loading.......'),
+                  child: CircularProgressIndicator(),
                 )
               : GridView.builder(
                   gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
@@ -87,6 +87,7 @@ class CategoryLips extends StatelessWidget {
                                 ),
                                 Text(
                                   "${controller.lips[index].productName.capitalizeFirst}",
+                                  maxLines: 1,
                                   style: TextStyle(
                                       fontSize: 18,
                                       fontWeight: FontWeight.bold,

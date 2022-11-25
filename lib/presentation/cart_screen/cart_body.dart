@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 
 import '../../controller/data_controller.dart';
 import '../resources/color_manager.dart';
+import '../resources/routes_manager.dart';
 
 class CartBody extends StatefulWidget {
   const CartBody({super.key});
@@ -14,11 +15,12 @@ class CartBody extends StatefulWidget {
 
 class _CartBodyState extends State<CartBody> {
   final DataController controller = Get.find();
+
   @override
   void initState() {
-    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      controller.getCartProduct();
-    });
+    // WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+    controller.getCartProduct();
+    // });
     super.initState();
   }
 
@@ -68,15 +70,14 @@ class _CartBodyState extends State<CartBody> {
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    // Text(
-                                    //   "${controller.cartProduct[index].productName!.capitalizeFirst}",
-                                    //   textAlign: TextAlign.center,
-                                    //   style: TextStyle(
-                                    //       fontSize: 18,
-                                    //       fontWeight: FontWeight.bold,
-                                    //       color: ColorManager.black),
-                                    // ),
-                                    Text(controller.cartTotal().toString()),
+                                    Text(
+                                      "${controller.cartProduct[index].productName!.capitalizeFirst}",
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                          fontSize: 18,
+                                          fontWeight: FontWeight.bold,
+                                          color: ColorManager.black),
+                                    ),
                                     SizedBox(
                                         height: SizeConfig.screenHeight * 0.04),
                                     Row(
@@ -104,6 +105,8 @@ class _CartBodyState extends State<CartBody> {
                                                             controller
                                                                     .cartProduct[
                                                                 index]);
+                                                        Get.offAndToNamed(
+                                                            Routes.cartView);
                                                       });
                                                     }
                                                   },
@@ -121,6 +124,8 @@ class _CartBodyState extends State<CartBody> {
                                                           controller
                                                                   .cartProduct[
                                                               index]);
+                                                      Get.offAndToNamed(
+                                                          Routes.cartView);
                                                     });
                                                   },
                                                   icon: const Icon(Icons.add),
@@ -135,6 +140,8 @@ class _CartBodyState extends State<CartBody> {
                                               controller.deleteProduct(
                                                   controller
                                                       .cartProduct[index]);
+                                              Get.offAndToNamed(
+                                                  Routes.cartView);
                                             });
                                           },
                                           child: CircleAvatar(

@@ -7,16 +7,15 @@ import '../product_detail/detail_screen.dart';
 import '../resources/color_manager.dart';
 import '../resources/size_config.dart';
 
-class CategoryEyes extends StatelessWidget {
-  const CategoryEyes({super.key});
+class CategorySkin extends StatelessWidget {
+  const CategorySkin({super.key});
 
   @override
   Widget build(BuildContext context) {
     final DataController controller = Get.find();
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      controller.getEyesProduct();
+      controller.getFaceProduct();
     });
-
     return Container(
       decoration:
           const BoxDecoration(gradient: ColorManager.kPrimaryGradientColor),
@@ -25,13 +24,13 @@ class CategoryEyes extends StatelessWidget {
         appBar: AppBar(
           centerTitle: true,
           title: Text(
-            'Eyes',
+            'Skin',
             style: GoogleFonts.poppins(
                 fontSize: 24, color: ColorManager.kTextColor),
           ),
         ),
         body: GetBuilder<DataController>(
-          builder: (controller) => controller.eyes.isEmpty
+          builder: (controller) => controller.face.isEmpty
               ? const Center(
                   child: CircularProgressIndicator(),
                 )
@@ -42,7 +41,7 @@ class CategoryEyes extends StatelessWidget {
                       crossAxisSpacing: 0,
                       mainAxisSpacing: 20),
                   shrinkWrap: true,
-                  itemCount: controller.eyes.length,
+                  itemCount: controller.face.length,
                   itemBuilder: (context, index) {
                     return Padding(
                       padding: const EdgeInsets.all(8.0),
@@ -51,7 +50,7 @@ class CategoryEyes extends StatelessWidget {
                           Navigator.push(context,
                               MaterialPageRoute(builder: (_) {
                             return DetailScreen(
-                                product: controller.eyes[index]);
+                                product: controller.face[index]);
                           }));
                         },
                         child: Card(
@@ -77,7 +76,7 @@ class CategoryEyes extends StatelessWidget {
                                         ColorManager.kSecondaryColor,
                                     child: CircleAvatar(
                                       backgroundImage: NetworkImage(
-                                        controller.eyes[index].productImage,
+                                        controller.face[index].productImage,
                                       ),
                                       radius: 70,
                                     ),
@@ -87,14 +86,14 @@ class CategoryEyes extends StatelessWidget {
                                   height: SizeConfig.screenHeight * 0.02,
                                 ),
                                 Text(
-                                  "${controller.eyes[index].productName.capitalizeFirst}",
+                                  "${controller.face[index].productName.capitalizeFirst}",
                                   style: TextStyle(
                                       fontSize: 18,
                                       fontWeight: FontWeight.bold,
                                       color: ColorManager.black),
                                 ),
                                 Text(
-                                  'Rs ${controller.eyes[index].productPrice.toStringAsFixed(0)}',
+                                  'Rs ${controller.face[index].productPrice.toStringAsFixed(0)}',
                                   style: TextStyle(
                                       fontWeight: FontWeight.bold,
                                       color: ColorManager.black),

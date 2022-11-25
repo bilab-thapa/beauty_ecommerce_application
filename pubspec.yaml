@@ -47,6 +47,7 @@ dependencies:
   firebase_storage: ^11.0.4
   google_fonts: ^3.0.1
   youtube_player_flutter: ^8.1.1
+  khalti_flutter: ^2.1.0
 
 
 dev_dependencies:

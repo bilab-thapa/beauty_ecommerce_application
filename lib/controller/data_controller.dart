@@ -17,7 +17,7 @@ class DataController extends GetxController {
   List<Product> face = [];
   List<Product> eyes = [];
   List<Cart> cartProduct = [];
-  List<Cart> checkCartProduct = [];
+
   bool isCart = false;
   var subTotal = 0.obs;
 
@@ -115,6 +115,7 @@ class DataController extends GetxController {
     for (var element in cartProduct) {
       total += element.productPrice! * element.productQuantity!;
     }
+    // print("this$total");
     return total;
   }
 
@@ -129,6 +130,9 @@ class DataController extends GetxController {
           .doc(cartData.productId);
 
       response.delete();
+      cartProduct
+          .removeWhere((element) => element.productId == cartData.productId);
+      print(cartProduct.length);
     } catch (exception) {
       return;
     }
@@ -137,6 +141,7 @@ class DataController extends GetxController {
   Future<void> addToCart(Product productdata) async {
     final auth = FirebaseAuth.instance.currentUser!.uid;
     final List<Cart> cartLodadedProduct = [];
+    List<Cart> checkCartProduct = [];
 
     try {
       var response = FirebaseFirestore.instance
@@ -175,10 +180,10 @@ class DataController extends GetxController {
           "productQuantity": 1,
         });
         Get.snackbar('Alert', 'Successfully Added to Cart',
-            snackPosition: SnackPosition.BOTTOM);
+            snackPosition: SnackPosition.TOP);
       } else {
         Get.snackbar('Alert', 'Product Already in Cart',
-            snackPosition: SnackPosition.BOTTOM);
+            snackPosition: SnackPosition.TOP);
       }
     } catch (exception) {
       return;
@@ -207,6 +212,7 @@ class DataController extends GetxController {
           ));
         }
       }
+      // print('this $cartLodadedProduct');
       cartProduct.addAll(cartLodadedProduct);
       update();
     } on FirebaseException catch (e) {
@@ -214,6 +220,7 @@ class DataController extends GetxController {
     } catch (error) {
       print("error $error");
     }
+    // print(cartProduct);
   }
 
   Future<void> getSpecialProduct() async {
@@ -252,8 +259,6 @@ class DataController extends GetxController {
 
       if (response.docs.isNotEmpty) {
         for (var result in response.docs) {
-          print(result.data());
-          print("Product ID  ${result.id}");
           liplodadedProduct.add(Product(
             productId: result['productId'],
             productName: result['productName'],

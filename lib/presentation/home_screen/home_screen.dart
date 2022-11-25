@@ -1,5 +1,5 @@
 import 'package:beauty_e_commerce/controller/data_controller.dart';
-import 'package:beauty_e_commerce/presentation/category_view.dart/category_home.dart';
+import 'package:beauty_e_commerce/presentation/category_view/category_home.dart';
 import 'package:beauty_e_commerce/presentation/home_screen/components/special_for_you.dart';
 import 'package:beauty_e_commerce/presentation/resources/color_manager.dart';
 import 'package:beauty_e_commerce/presentation/resources/size_config.dart';

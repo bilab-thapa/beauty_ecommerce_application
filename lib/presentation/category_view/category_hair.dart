@@ -18,7 +18,8 @@ class CategoryHair extends StatelessWidget {
     });
 
     return Container(
-      decoration: BoxDecoration(gradient: ColorManager.kPrimaryGradientColor),
+      decoration:
+          const BoxDecoration(gradient: ColorManager.kPrimaryGradientColor),
       child: Scaffold(
         backgroundColor: Colors.transparent,
         appBar: AppBar(
@@ -31,8 +32,8 @@ class CategoryHair extends StatelessWidget {
         ),
         body: GetBuilder<DataController>(
           builder: (controller) => controller.hair.isEmpty
-              ? Center(
-                  child: Text('Loading.......'),
+              ? const Center(
+                  child: CircularProgressIndicator(),
                 )
               : GridView.builder(
                   gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(

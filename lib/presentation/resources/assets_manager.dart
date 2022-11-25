@@ -50,24 +50,17 @@ class ImageAssets {
   static const String userIcon = "$iconPath/User Icon.svg";
   static const String user = "$iconPath/User.svg";
   static const String phone = "$iconPath/Phone.svg";
+  static const String home = "$iconPath/home.svg";
+  static const String homeSelected = "$iconPath/homeSelected.svg";
 
   //images
-  static const String imageBanner2 = "$imagePath/image_banner-2.png";
-  static const String imageBanner3 = "$imagePath/image_banner-3.png";
   static const String popularProduct1 = "$imagePath/popular_product-1.png";
   static const String popularProduct2 = "$imagePath/popular_product-2.png";
   static const String popularProduct3 = "$imagePath/popular_product-3.png";
   static const String masterCard = "$imagePath/mastercard-2.png";
-  static const String fedexExpress = "$imagePath/apple_pay.png";
   static const String applePay = "$imagePath/apple_pay.png";
-  static const String glap = "$imagePath/glap.png";
   static const String googlePay = "$imagePath/google-pay.png";
   static const String patternSuccess = "$imagePath/pattern_success.png";
-  static const String tshirt = "$imagePath/tshirt.png.png";
   static const String visa = "$imagePath/visa.png";
-  static const String wirelessHeadset = "$imagePath/wireless_headset.png";
-  static const String profileImage = "$imagePath/profile_image.png";
   static const String paypal = "$imagePath/paypal.png";
-  static const String product1Image = "$imagePath/product-1-image.png";
-  static const String shoes2 = "$imagePath/shoes-2.png";
 }
