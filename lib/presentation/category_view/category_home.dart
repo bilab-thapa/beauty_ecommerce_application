@@ -1,7 +1,7 @@
-import 'package:beauty_e_commerce/presentation/category_view.dart/category_eyes.dart';
-import 'package:beauty_e_commerce/presentation/category_view.dart/category_face.dart';
-import 'package:beauty_e_commerce/presentation/category_view.dart/category_hair.dart';
-import 'package:beauty_e_commerce/presentation/category_view.dart/category_lips.dart';
+import 'package:beauty_e_commerce/presentation/category_view/category_eyes.dart';
+import 'package:beauty_e_commerce/presentation/category_view/category_skin.dart';
+import 'package:beauty_e_commerce/presentation/category_view/category_hair.dart';
+import 'package:beauty_e_commerce/presentation/category_view/category_lips.dart';
 import 'package:beauty_e_commerce/presentation/resources/size_config.dart';
 import 'package:flutter/material.dart';
 
@@ -17,118 +17,128 @@ class Category extends StatefulWidget {
 class _CategoryState extends State<Category> {
   @override
   Widget build(BuildContext context) {
-    Widget _buildLipIcon() {
+    Widget buildLipIcon() {
       return InkWell(
         onTap: () {
           Navigator.push(context, MaterialPageRoute(builder: (_) {
-            return CategoryLips();
+            return const CategoryLips();
           }));
         },
-        child: Container(
-          height: SizeConfig.screenHeight * 0.1,
-          width: SizeConfig.screenWidth * 0.2,
-          decoration: BoxDecoration(
-              color: ColorManager.kSecondaryColor,
-              borderRadius: BorderRadius.circular(20)),
-          child: Center(
-            child: Text('Lips'),
+        child: Card(
+          elevation: 10,
+          shadowColor: ColorManager.kPrimaryColor,
+          color: ColorManager.bgWhite,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(15.0),
+          ),
+          child: SizedBox(
+            height: SizeConfig.screenHeight * 0.1,
+            width: SizeConfig.screenWidth * 0.2,
+            child: const Center(
+              child: Text('Lips'),
+            ),
           ),
         ),
       );
     }
 
-    Widget _buildHairIcon() {
+    Widget buildHairIcon() {
       return InkWell(
         onTap: () {
           Navigator.push(context, MaterialPageRoute(builder: (_) {
-            return CategoryHair();
+            return const CategoryHair();
           }));
         },
-        child: Container(
-          height: SizeConfig.screenHeight * 0.1,
-          width: SizeConfig.screenWidth * 0.2,
-          decoration: BoxDecoration(
-              color: ColorManager.kSecondaryColor,
-              borderRadius: BorderRadius.circular(20)),
-          child: Center(
-            child: Text('Hair'),
+        child: Card(
+          elevation: 10,
+          shadowColor: ColorManager.kPrimaryColor,
+          color: ColorManager.bgWhite,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(15.0),
+          ),
+          child: SizedBox(
+            height: SizeConfig.screenHeight * 0.1,
+            width: SizeConfig.screenWidth * 0.2,
+            child: const Center(
+              child: Text('Hair'),
+            ),
           ),
         ),
       );
     }
 
-    Widget _buildFaceIcon() {
+    Widget buildSkinIcon() {
       return InkWell(
         onTap: () {
           Navigator.push(context, MaterialPageRoute(builder: (_) {
-            return CategoryFace();
+            return const CategorySkin();
           }));
         },
-        child: Container(
-          height: SizeConfig.screenHeight * 0.1,
-          width: SizeConfig.screenWidth * 0.2,
-          decoration: BoxDecoration(
-              color: ColorManager.kSecondaryColor,
-              borderRadius: BorderRadius.circular(20)),
-          child: Center(
-            child: Text('Face'),
+        child: Card(
+          elevation: 10,
+          shadowColor: ColorManager.kPrimaryColor,
+          color: ColorManager.bgWhite,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(15.0),
+          ),
+          child: SizedBox(
+            height: SizeConfig.screenHeight * 0.1,
+            width: SizeConfig.screenWidth * 0.2,
+            child: const Center(
+              child: Text('Skin'),
+            ),
           ),
         ),
       );
     }
 
-    Widget _buildEyesIcon() {
+    Widget buildEyesIcon() {
       return InkWell(
         onTap: () {
           Navigator.push(context, MaterialPageRoute(builder: (_) {
-            return CategoryEyes();
+            return const CategoryEyes();
           }));
         },
-        child: Container(
-          height: SizeConfig.screenHeight * 0.1,
-          width: SizeConfig.screenWidth * 0.2,
-          decoration: BoxDecoration(
-              color: ColorManager.kSecondaryColor,
-              borderRadius: BorderRadius.circular(20)),
-          child: Center(
-            child: Text('Eyes'),
+        child: Card(
+          elevation: 10,
+          shadowColor: ColorManager.kPrimaryColor,
+          color: ColorManager.bgWhite,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(20.0),
+          ),
+          child: SizedBox(
+            height: SizeConfig.screenHeight * 0.1,
+            width: SizeConfig.screenWidth * 0.2,
+            child: const Center(
+              child: Text('Eyes'),
+            ),
           ),
         ),
       );
     }
 
-    Widget _buildCategory() {
+    Widget buildCategory() {
       return Column(
         children: <Widget>[
           SizedBox(height: SizeConfig.screenHeight * 0.02),
-          Container(
-            child: SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              child: Row(
-                children: <Widget>[
-                  _buildEyesIcon(),
-                  SizedBox(width: SizeConfig.screenWidth * 0.02),
-                  _buildLipIcon(),
-                  SizedBox(width: SizeConfig.screenWidth * 0.02),
-                  _buildHairIcon(),
-                  SizedBox(width: SizeConfig.screenWidth * 0.02),
-                  _buildFaceIcon(),
-                  SizedBox(width: SizeConfig.screenWidth * 0.02),
-                ],
-              ),
-            ),
+          Row(
+            children: <Widget>[
+              buildEyesIcon(),
+              SizedBox(width: SizeConfig.screenWidth * 0.015),
+              buildLipIcon(),
+              SizedBox(width: SizeConfig.screenWidth * 0.015),
+              buildHairIcon(),
+              SizedBox(width: SizeConfig.screenWidth * 0.015),
+              buildSkinIcon(),
+              SizedBox(width: SizeConfig.screenWidth * 0.015),
+            ],
           ),
         ],
       );
     }
 
-    return SizedBox(
-      child: SingleChildScrollView(
-        scrollDirection: Axis.horizontal,
-        child: Row(
-          children: [_buildCategory()],
-        ),
-      ),
+    return Row(
+      children: [buildCategory()],
     );
   }
 }

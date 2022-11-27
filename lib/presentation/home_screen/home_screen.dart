@@ -1,5 +1,5 @@
 import 'package:beauty_e_commerce/controller/data_controller.dart';
-import 'package:beauty_e_commerce/presentation/category_view.dart/category_home.dart';
+import 'package:beauty_e_commerce/presentation/category_view/category_home.dart';
 import 'package:beauty_e_commerce/presentation/home_screen/components/special_for_you.dart';
 import 'package:beauty_e_commerce/presentation/resources/color_manager.dart';
 import 'package:beauty_e_commerce/presentation/resources/size_config.dart';
@@ -53,8 +53,12 @@ class _HomeScreenState extends State<HomeScreen> {
             child: Column(
               children: <Widget>[
                 SizedBox(height: SizeConfig.screenHeight * 0.01),
-                const BannerScreen(),
+                const BannerBody(),
                 SizedBox(height: SizeConfig.screenHeight * 0.01),
+                const Text(
+                  'Category',
+                  style: TextStyle(fontSize: 26, fontWeight: FontWeight.bold),
+                ),
                 const Category(),
                 SizedBox(height: SizeConfig.screenHeight * 0.02),
                 const Text(
