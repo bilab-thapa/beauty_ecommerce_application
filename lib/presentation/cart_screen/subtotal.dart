@@ -27,15 +27,16 @@ class _SubTotalState extends State<SubTotal> {
   @override
   Widget build(BuildContext context) {
     List<Orders> cartOrder = [];
-
     for (var result in controller.cartProduct) {
       cartOrder.add(
         Orders(
+
           productPrice: result.productPrice,
           productName: result.productName,
           image: result.image,
           productQuantity: result.productQuantity,
           totalPrice: controller.subTotal.toDouble(),
+
         ),
       );
     }

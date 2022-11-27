@@ -30,6 +30,7 @@ class BannerBodyState extends State<BannerBody> {
   final BannerScreenController introScreenController =
       Get.put(BannerScreenController());
 
+
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -47,6 +48,7 @@ class BannerBodyState extends State<BannerBody> {
               itemCount: introScreenController.bannerData.length,
               itemBuilder: (context, index) => BannerContent(
                 image: introScreenController.bannerData[index].imgString,
+
               ),
             ),
           ),
