@@ -53,8 +53,12 @@ class _HomeScreenState extends State<HomeScreen> {
             child: Column(
               children: <Widget>[
                 SizedBox(height: SizeConfig.screenHeight * 0.01),
-                const BannerScreen(),
+                const BannerBody(),
                 SizedBox(height: SizeConfig.screenHeight * 0.01),
+                const Text(
+                  'Category',
+                  style: TextStyle(fontSize: 26, fontWeight: FontWeight.bold),
+                ),
                 const Category(),
                 SizedBox(height: SizeConfig.screenHeight * 0.02),
                 const Text(
