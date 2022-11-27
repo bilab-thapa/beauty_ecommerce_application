@@ -1,17 +1,16 @@
 import 'dart:io';
 import 'package:beauty_e_commerce/models/cart_model.dart';
+import 'package:beauty_e_commerce/models/order_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:get/get.dart';
-
 import '../models/product_model.dart';
 import '../models/user_model.dart';
 
 class DataController extends GetxController {
   final FirebaseAuth auth = FirebaseAuth.instance;
   final firebaseInstance = FirebaseFirestore.instance;
-  // Map userProfileData = {'userName': '', 'userEmail': '', 'userAddress': ''};
   List<UserModel> user = [];
   List<Product> specialProducts = [];
   List<Product> lips = [];
@@ -19,9 +18,10 @@ class DataController extends GetxController {
   List<Product> face = [];
   List<Product> eyes = [];
   List<Cart> cartProduct = [];
-  List<Cart> checkCartProduct = [];
+  List<Orders> orders = [];
+
   bool isCart = false;
-  int cartQuantity = 1;
+  var subTotal = 0.obs;
 
   @override
   void onReady() {
@@ -48,10 +48,10 @@ class DataController extends GetxController {
       }
       user.addAll(userLoaded);
       update();
-    } on FirebaseException catch (e) {
-      print(e);
+    } on FirebaseException {
+      // print(e);
     } catch (error) {
-      print(error);
+      // print(error);
     }
   }
 
@@ -59,16 +59,14 @@ class DataController extends GetxController {
     var pathimage = image.toString();
     var temp = pathimage.lastIndexOf('/');
     var result = pathimage.substring(temp + 1);
-    print(result);
     final ref =
         FirebaseStorage.instance.ref().child('product_images').child(result);
     var response = await ref.putFile(image);
-    print("Updated $response");
+
     var imageUrl = await ref.getDownloadURL();
 
     try {
-      var response =
-          FirebaseFirestore.instance.collection(productdata['p_data']).add({
+      FirebaseFirestore.instance.collection(productdata['p_data']).add({
         'productId': DateTime.now().millisecondsSinceEpoch.toString(),
         'productName': productdata['p_name'],
         'productPrice': productdata['p_price'],
@@ -77,17 +75,75 @@ class DataController extends GetxController {
         "productCategory": productdata['p_category'],
         "productVideo": productdata['p_video']
       });
-      print(response.toString());
-      // print("Firebase response1111 $response");
     } catch (exception) {
-      // print("Error Saving Data at firestore $exception");
+      return;
+    }
+  }
+
+  Future<void> addQuantity(Cart cartData) async {
+    final auth = FirebaseAuth.instance.currentUser!.uid;
+
+    try {
+      var response = firebaseInstance
+          .collection('User')
+          .doc(auth)
+          .collection('Cart')
+          .doc(cartData.productId);
+
+      response.update({'productQuantity': FieldValue.increment(1)});
+    } catch (exception) {
+      return;
+    }
+  }
+
+  Future<void> subQuantity(Cart cartData) async {
+    final auth = FirebaseAuth.instance.currentUser!.uid;
+
+    try {
+      var response = firebaseInstance
+          .collection('User')
+          .doc(auth)
+          .collection('Cart')
+          .doc(cartData.productId);
+
+      response.update({'productQuantity': FieldValue.increment(-1)});
+    } catch (exception) {
+      return;
+    }
+  }
+
+  cartTotal() {
+    double total = 0.0;
+    for (var element in cartProduct) {
+      total += element.productPrice! * element.productQuantity!;
+    }
+    // print("this$total");
+    return total;
+  }
+
+  Future<void> deleteProduct(Cart cartData) async {
+    final auth = FirebaseAuth.instance.currentUser!.uid;
+
+    try {
+      var response = firebaseInstance
+          .collection('User')
+          .doc(auth)
+          .collection('Cart')
+          .doc(cartData.productId);
+
+      response.delete();
+      cartProduct
+          .removeWhere((element) => element.productId == cartData.productId);
+      // print(cartProduct.length);
+    } catch (exception) {
+      return;
     }
   }
 
   Future<void> addToCart(Product productdata) async {
     final auth = FirebaseAuth.instance.currentUser!.uid;
     final List<Cart> cartLodadedProduct = [];
-    final List<Cart> cartCheckProduct = [];
+    List<Cart> checkCartProduct = [];
 
     try {
       var response = FirebaseFirestore.instance
@@ -117,38 +173,37 @@ class DataController extends GetxController {
       update();
       var contain = checkCartProduct
           .where((element) => element.productId == productdata.productId);
-
       if (contain.isEmpty) {
-        response.add({
+        response.doc(productdata.productId).set({
           "productName": productdata.productName,
           "productPrice": productdata.productPrice,
           "productId": productdata.productId,
           "productImage": productdata.productImage,
-          "productQuantity": cartQuantity,
+          "productQuantity": 1,
         });
+        Get.snackbar('Alert', 'Successfully Added to Cart',
+            snackPosition: SnackPosition.TOP);
       } else {
-        response
-            // .where('productId', isEqualTo: productdata.productId)
-            .doc()
-            .update(({"productQuantity": FieldValue.increment(1)}));
-
-        // ({"productQuantity": FieldValue.increment(1)});
+        Get.snackbar('Alert', 'Product Already in Cart',
+            snackPosition: SnackPosition.TOP);
       }
-
-      // for (var i = 0; i <= checkCartProduct.length; i++) {
-      //   if (productdata.productId == checkCartProduct[i].productId) {
-      //     isCart == true;
-      //   }
-      //   isCart == false;
-      // }
-      // for (var i = 0; i < 1;) {
-      //   if (isCart == false) {}
-      // }
-      // print(isCart);
-      // print(response.toString());
-      // print("Firebase response1111 $response");
     } catch (exception) {
-      // print("Error Saving Data at firestore $exception");
+      return;
+    }
+  }
+
+  Future<void> placeOrder(Orders orderPlace) async {
+    final auth = FirebaseAuth.instance.currentUser!.uid;
+
+    try {
+      var response = FirebaseFirestore.instance
+          .collection('User')
+          .doc(auth)
+          .collection('Order');
+    } on FirebaseException {
+      // print("Error $e");
+    } catch (error) {
+      // print("error $error");
     }
   }
 
@@ -162,6 +217,7 @@ class DataController extends GetxController {
           .doc(auth)
           .collection('Cart')
           .get();
+
       if (response.docs.isNotEmpty) {
         for (var result in response.docs) {
           cartLodadedProduct.add(Cart(
@@ -173,13 +229,15 @@ class DataController extends GetxController {
           ));
         }
       }
+      // print('this $cartLodadedProduct');
       cartProduct.addAll(cartLodadedProduct);
       update();
-    } on FirebaseException catch (e) {
-      print("Error $e");
+    } on FirebaseException {
+      // print("Error $e");
     } catch (error) {
-      print("error $error");
+      // print("error $error");
     }
+    // print(cartProduct);
   }
 
   Future<void> getSpecialProduct() async {
@@ -203,10 +261,10 @@ class DataController extends GetxController {
       }
       specialProducts.addAll(lodadedProduct);
       update();
-    } on FirebaseException catch (e) {
-      print("Error $e");
+    } on FirebaseException {
+      // print("Error $e");
     } catch (error) {
-      print("error $error");
+      // print("error $error");
     }
   }
 
@@ -218,8 +276,6 @@ class DataController extends GetxController {
 
       if (response.docs.isNotEmpty) {
         for (var result in response.docs) {
-          print(result.data());
-          print("Product ID  ${result.id}");
           liplodadedProduct.add(Product(
             productId: result['productId'],
             productName: result['productName'],
@@ -233,10 +289,10 @@ class DataController extends GetxController {
       }
       lips.addAll(liplodadedProduct);
       update();
-    } on FirebaseException catch (e) {
-      print("Error $e");
+    } on FirebaseException {
+      // print("Error $e");
     } catch (error) {
-      print("error $error");
+      // print("error $error");
     }
   }
 
@@ -248,8 +304,8 @@ class DataController extends GetxController {
 
       if (response.docs.isNotEmpty) {
         for (var result in response.docs) {
-          print(result.data());
-          print("Product ID  ${result.id}");
+          // print(result.data());
+          // print("Product ID  ${result.id}");
           hairlodadedProduct.add(Product(
             productId: result['productId'],
             productName: result['productName'],
@@ -263,10 +319,10 @@ class DataController extends GetxController {
       }
       hair.addAll(hairlodadedProduct);
       update();
-    } on FirebaseException catch (e) {
-      print("Error $e");
+    } on FirebaseException {
+      // print("Error $e");
     } catch (error) {
-      print("error $error");
+      // print("error $error");
     }
   }
 
@@ -278,8 +334,8 @@ class DataController extends GetxController {
 
       if (response.docs.isNotEmpty) {
         for (var result in response.docs) {
-          print(result.data());
-          print("Product ID  ${result.id}");
+          // print(result.data());
+          // print("Product ID  ${result.id}");
           facelodadedProduct.add(Product(
             productId: result['productId'],
             productName: result['productName'],
@@ -293,10 +349,10 @@ class DataController extends GetxController {
       }
       face.addAll(facelodadedProduct);
       update();
-    } on FirebaseException catch (e) {
-      print("Error $e");
+    } on FirebaseException {
+      // print("Error $e");
     } catch (error) {
-      print("error $error");
+      // print("error $error");
     }
   }
 
@@ -308,8 +364,8 @@ class DataController extends GetxController {
 
       if (response.docs.isNotEmpty) {
         for (var result in response.docs) {
-          print(result.data());
-          print("Product ID  ${result.id}");
+          // print(result.data());
+          // print("Product ID  ${result.id}");
           eyeslodadedProduct.add(Product(
             productId: result['productId'],
             productName: result['productName'],
@@ -323,10 +379,10 @@ class DataController extends GetxController {
       }
       face.addAll(eyeslodadedProduct);
       update();
-    } on FirebaseException catch (e) {
-      print("Error $e");
+    } on FirebaseException {
+      // print("Error $e");
     } catch (error) {
-      print("error $error");
+      // print("error $error");
     }
   }
 

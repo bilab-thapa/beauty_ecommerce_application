@@ -8,8 +8,9 @@ class SignUpScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: BoxDecoration(gradient: ColorManager.kPrimaryGradientColor),
-      child: Scaffold(
+      decoration:
+          const BoxDecoration(gradient: ColorManager.kPrimaryGradientColor),
+      child: const Scaffold(
         backgroundColor: Colors.transparent,
         body: SignUpBody(),
       ),
