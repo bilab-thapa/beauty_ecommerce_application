@@ -25,14 +25,14 @@ class BottomNav extends StatelessWidget {
                 Navigator.pushNamed(context, Routes.homeScreenRoute);
               },
             ),
-            IconButton(
-              icon: Icon(
-                Icons.favorite_rounded,
-                color: Colors.white,
-                size: iconSize,
-              ),
-              onPressed: () {},
-            ),
+            // IconButton(
+            //   icon: Icon(
+            //     Icons.favorite_rounded,
+            //     color: Colors.white,
+            //     size: iconSize,
+            //   ),
+            //   onPressed: () {},
+            // ),
             IconButton(
               icon: Icon(
                 Icons.shopping_cart,
