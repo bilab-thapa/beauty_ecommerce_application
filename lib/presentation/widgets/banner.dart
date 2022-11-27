@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../intro_screen/intro_screen_controller/intro_screen_controller.dart';
+import '../../controller/intro_screen_controller.dart';
 import '../resources/color_manager.dart';
 import '../resources/duration_constants.dart';
 import '../resources/size_config.dart';
@@ -27,8 +27,9 @@ class BannerBody extends StatefulWidget {
 }
 
 class BannerBodyState extends State<BannerBody> {
-  final IntroScreenController introScreenController =
-      Get.put(IntroScreenController());
+  final BannerScreenController introScreenController =
+      Get.put(BannerScreenController());
+
 
   @override
   Widget build(BuildContext context) {
@@ -44,10 +45,10 @@ class BannerBodyState extends State<BannerBody> {
               onPageChanged: (value) {
                 introScreenController.assignValue(value);
               },
-              itemCount: introScreenController.introScreenData.length,
+              itemCount: introScreenController.bannerData.length,
               itemBuilder: (context, index) => BannerContent(
-                image: introScreenController.introScreenData[index].imgString,
-                text: introScreenController.introScreenData[index].text,
+                image: introScreenController.bannerData[index].imgString,
+
               ),
             ),
           ),
@@ -55,7 +56,7 @@ class BannerBodyState extends State<BannerBody> {
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: List.generate(
-              introScreenController.introScreenData.length,
+              introScreenController.bannerData.length,
               (index) => Obx(() => buildDot(index: index)),
             ),
           ),

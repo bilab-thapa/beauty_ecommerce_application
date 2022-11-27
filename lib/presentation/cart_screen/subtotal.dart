@@ -1,3 +1,4 @@
+import 'package:beauty_e_commerce/models/order_model.dart';
 import 'package:beauty_e_commerce/presentation/resources/color_manager.dart';
 import 'package:beauty_e_commerce/presentation/resources/size_config.dart';
 import 'package:flutter/material.dart';
@@ -25,15 +26,17 @@ class _SubTotalState extends State<SubTotal> {
 
   @override
   Widget build(BuildContext context) {
-    List<OrderProduct> cartOrder = [];
-
+    List<Orders> cartOrder = [];
     for (var result in controller.cartProduct) {
       cartOrder.add(
-        OrderProduct(
+        Orders(
+
           productPrice: result.productPrice,
           productName: result.productName,
           image: result.image,
           productQuantity: result.productQuantity,
+          totalPrice: controller.subTotal.toDouble(),
+
         ),
       );
     }
