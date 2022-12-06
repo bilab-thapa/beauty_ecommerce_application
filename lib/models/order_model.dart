@@ -1,14 +1,20 @@
-class Orders {
-  final String? productName;
-  final double? productPrice;
-  final String? image;
-  final int? productQuantity;
-  double? totalPrice;
+class OrderModel {
+  String? firstName;
+  String? lastName;
+  String? city;
+  String? address;
+  String? phoneNumber;
+  double total;
+  String? status;
+  List<dynamic> orders;
 
-  Orders(
-      {required this.productName,
-      required this.productPrice,
-      required this.image,
-      required this.productQuantity,
-      required this.totalPrice});
+  OrderModel(
+      {required this.firstName,
+      required this.lastName,
+      required this.city,
+      required this.address,
+      required this.phoneNumber,
+      required this.total,
+      required this.orders,
+      required this.status});
 }
