@@ -1,4 +1,5 @@
 import 'package:beauty_e_commerce/controller/data_controller.dart';
+import 'package:beauty_e_commerce/presentation/profile/components/profile_image.dart';
 import 'package:beauty_e_commerce/presentation/resources/color_manager.dart';
 import 'package:beauty_e_commerce/presentation/resources/size_config.dart';
 import 'package:beauty_e_commerce/presentation/widgets/default_button.dart';
@@ -25,9 +26,7 @@ class _ProfilePageDesignState extends State<ProfilePageDesign> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: ColorManager.kSecondaryColor,
         appBar: AppBar(
-          backgroundColor: Colors.transparent,
           title: Text(
             'My Profile',
             style: GoogleFonts.poppins(
@@ -48,11 +47,11 @@ class _ProfilePageDesignState extends State<ProfilePageDesign> {
                 builder: (BuildContext context,
                     AsyncSnapshot<QuerySnapshot> snapshot) {
                   if (snapshot.hasError) {
-                    return Text('Something went wrong');
+                    return const Text('Something went wrong');
                   }
 
                   if (snapshot.connectionState == ConnectionState.waiting) {
-                    return Text("Loading");
+                    return const Text("Loading");
                   }
                   return Column(
                     children:
@@ -75,8 +74,8 @@ class _ProfilePageDesignState extends State<ProfilePageDesign> {
 }
 
 Widget profileLayout(username, email, address) {
-  final _newName = TextEditingController();
-  final _newAddress = TextEditingController();
+  final newName = TextEditingController();
+  final newAddress = TextEditingController();
   // final _newEmail = TextEditingController();
   // final _newPassword = TextEditingController();
   // final _oldPassword = TextEditingController();
@@ -91,7 +90,7 @@ Widget profileLayout(username, email, address) {
           prefixIcon: iconName,
           fillColor: ColorManager.white.withOpacity(0.4),
           filled: true,
-          border: OutlineInputBorder(),
+          border: const OutlineInputBorder(),
           labelText: lable,
           labelStyle: GoogleFonts.poppins(
             color: ColorManager.white,
@@ -111,26 +110,17 @@ Widget profileLayout(username, email, address) {
   return Container(
     child: Column(
       children: [
-        Center(
-          child: CircleAvatar(
-            radius: 80,
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(50),
-              child: Image.network(
-                'https://pub-static.fotor.com/assets/projects/pages/d5bdd0513a0740a8a38752dbc32586d0/fotor-03d1a91a0cec4542927f53c87e0599f6.jpg',
-                width: SizeConfig.screenWidth * 0.45,
-                fit: BoxFit.contain,
-              ),
-            ),
-          ),
+        const SizedBox(
+          height: 20,
         ),
+        const ProfileImage(),
         Divider(
           color: ColorManager.bgWhite,
           thickness: 10,
         ),
         SizedBox(height: SizeConfig.screenHeight * 0.02),
         SizedBox(
-          height: SizeConfig.screenHeight * 0.47,
+          height: SizeConfig.screenHeight * 0.3,
           width: SizeConfig.screenWidth * 0.95,
           child: SingleChildScrollView(
             child: Card(
@@ -145,57 +135,27 @@ Widget profileLayout(username, email, address) {
                     height: SizeConfig.screenHeight * 0.02,
                   ),
                   buildTextFeild(
-                      Icon(
+                      const Icon(
                         Icons.person,
                         color: Colors.white,
                       ),
                       'Username',
                       username,
-                      _newName),
+                      newName),
                   SizedBox(
                     height: SizeConfig.screenHeight * 0.02,
                   ),
                   buildTextFeild(
-                      Icon(
+                      const Icon(
                         Icons.location_on_rounded,
                         color: Colors.white,
                       ),
                       'Address',
                       address,
-                      _newAddress),
+                      newAddress),
                   SizedBox(
                     height: SizeConfig.screenHeight * 0.02,
                   ),
-                  // buildTextFeild(
-                  //     Icon(
-                  //       Icons.email,
-                  //       color: Colors.white,
-                  //     ),
-                  //     'Email',
-                  //     email,
-                  //     _newEmail),
-                  // SizedBox(
-                  //   height: SizeConfig.screenHeight * 0.02,
-                  // ),
-                  // buildTextFeild(
-                  //     Icon(
-                  //       Icons.lock,
-                  //       color: Colors.white,
-                  //     ),
-                  //     'Old Password',
-                  //     '*************',
-                  //     _oldPassword),
-                  // SizedBox(
-                  //   height: SizeConfig.screenHeight * 0.02,
-                  // ),
-                  // buildTextFeild(
-                  //     Icon(
-                  //       Icons.lock,
-                  //       color: Colors.white,
-                  //     ),
-                  //     'New Password',
-                  //     '*************',
-                  //     _newPassword),
                 ],
               ),
             ),
@@ -209,14 +169,17 @@ Widget profileLayout(username, email, address) {
           child: DefaultButton(
             text: 'Update Details',
             press: () {
-              debugPrint(_newName.text);
-              controller.updateUser(
-                _newName.text,
-                // _newEmail.text,
-                // _newPassword.text,
-                _newAddress.text,
-                //  _oldPassword.text
-              );
+              if (newName.text.isNotEmpty && newAddress.text.isNotEmpty) {
+                controller.updateUser(
+                  newName.text,
+                  newAddress.text,
+                  // _newEmail.text,
+                  // _newPassword.text,
+                  //  _oldPassword.text
+                );
+              }
+              Get.snackbar('Error', 'Enter All Fields for Replacement');
+              return;
             },
           ),
         )

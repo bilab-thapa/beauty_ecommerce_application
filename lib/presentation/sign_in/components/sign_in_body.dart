@@ -1,11 +1,9 @@
 import 'package:beauty_e_commerce/presentation/resources/color_manager.dart';
 import 'package:beauty_e_commerce/presentation/sign_in/components/sign_in_form.dart';
 import 'package:flutter/material.dart';
-import '../../resources/assets_manager.dart';
 import '../../resources/size_config.dart';
 import '../../resources/strings_manager.dart';
 import '../../widgets/no_account.dart';
-import '../../widgets/social_card.dart';
 
 class SignInBody extends StatelessWidget {
   const SignInBody({super.key});
@@ -26,7 +24,7 @@ class SignInBody extends StatelessWidget {
                   Text(
                     AppStrings.welcomeBack,
                     style: TextStyle(
-                      color: ColorManager.kPrimaryColor,
+                      color: ColorManager.black,
                       fontSize: getProportionateScreenWidth(35),
                       fontWeight: FontWeight.bold,
                     ),
@@ -34,23 +32,6 @@ class SignInBody extends StatelessWidget {
                   SizedBox(height: SizeConfig.screenHeight * 0.15),
                   const SignInForm(),
                   SizedBox(height: SizeConfig.screenHeight * 0.08),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      SocialCard(
-                        icon: ImageAssets.googleIcon,
-                        press: () {},
-                      ),
-                      SocialCard(
-                        icon: ImageAssets.facebookIcon,
-                        press: () {},
-                      ),
-                      SocialCard(
-                        icon: ImageAssets.twitterIcon,
-                        press: () {},
-                      ),
-                    ],
-                  ),
                   SizedBox(height: getProportionateScreenHeight(20)),
                   const NoAccountText(),
                 ],

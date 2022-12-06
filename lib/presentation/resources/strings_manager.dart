@@ -16,7 +16,7 @@ class AppStrings {
       "We show the easy way to shop. \nJust stay at home with us";
 // sign in
   static const String signIn = "Sign In";
-  static const String welcomeBack = "Welcome Back";
+  static const String welcomeBack = "Welcome";
   static const String signUpPageText =
       "Sign Up with Email and Password to Join Us";
   static const String rememberMe = "Remember me";

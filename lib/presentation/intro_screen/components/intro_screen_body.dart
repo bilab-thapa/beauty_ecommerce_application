@@ -6,7 +6,7 @@ import '../../resources/routes_manager.dart';
 import '../../resources/size_config.dart';
 import '../../resources/strings_manager.dart';
 import '../../widgets/default_button.dart';
-import '../intro_screen_controller/intro_screen_controller.dart';
+import '../../../controller/intro_screen_controller.dart';
 import 'intro_screen_content.dart';
 
 class IntroScreenBody extends StatefulWidget {

@@ -1,10 +1,13 @@
 import 'package:beauty_e_commerce/presentation/cart_screen/cart_view.dart';
+import 'package:beauty_e_commerce/presentation/forgot_password/forgotpassword.dart';
+import 'package:beauty_e_commerce/presentation/history/history_screen.dart';
+
 import 'package:beauty_e_commerce/presentation/home_screen/home_screen.dart';
 import 'package:beauty_e_commerce/presentation/product_add/product_add.dart';
-import 'package:beauty_e_commerce/presentation/profile/components/profile_edit.dart';
 import 'package:beauty_e_commerce/presentation/profile/components/profile_ui.dart';
 import 'package:beauty_e_commerce/presentation/profile/profile_screen.dart';
 import 'package:beauty_e_commerce/presentation/resources/strings_manager.dart';
+import 'package:beauty_e_commerce/presentation/shipping/shipping_main.dart';
 import 'package:beauty_e_commerce/presentation/success/success.dart';
 import 'package:flutter/material.dart';
 import '../intro_screen/intro_screen.dart';
@@ -18,11 +21,13 @@ class Routes {
   static const String homeScreenRoute = "/homeScreen";
   static const String profileRoute = "/profile";
   static const String profileView = "/profileView";
-  static const String profileEdit = "/profileEdit";
   static const String productAdd = "/product";
   static const String categoryView = "/categoryView";
   static const String cartView = "/cart";
+  static const String shippingDetails = "/shippping";
   static const String success = "/success";
+  static const String forgot = "/forgot";
+  static const String history = "/history";
 }
 
 class Routegenerator {
@@ -42,14 +47,18 @@ class Routegenerator {
         return MaterialPageRoute(builder: (_) => const ProfileScreen());
       case Routes.profileView:
         return MaterialPageRoute(builder: (_) => ProfilePageDesign());
-      case Routes.profileEdit:
-        return MaterialPageRoute(builder: (_) => const ProfileEdit());
       case Routes.productAdd:
         return MaterialPageRoute(builder: (_) => const AddProductScreen());
       case Routes.cartView:
         return MaterialPageRoute(builder: (_) => const CartScreen());
       case Routes.success:
         return MaterialPageRoute(builder: (_) => const SuccessScreen());
+      case Routes.shippingDetails:
+        return MaterialPageRoute(builder: (_) => const ShippingScreen());
+      case Routes.forgot:
+        return MaterialPageRoute(builder: (_) => const ForgotPassword());
+      case Routes.history:
+        return MaterialPageRoute(builder: (_) => const History());
 
       default:
         return unDefinedRoute();

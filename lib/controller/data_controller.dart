@@ -1,11 +1,13 @@
 import 'dart:io';
 import 'package:beauty_e_commerce/models/cart_model.dart';
 import 'package:beauty_e_commerce/models/order_model.dart';
+import 'package:beauty_e_commerce/models/order_product_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:get/get.dart';
 import '../models/product_model.dart';
+import '../models/shipping_model.dart';
 import '../models/user_model.dart';
 
 class DataController extends GetxController {
@@ -18,10 +20,10 @@ class DataController extends GetxController {
   List<Product> face = [];
   List<Product> eyes = [];
   List<Cart> cartProduct = [];
-  List<Orders> orders = [];
+  List<OrderModel> orderData = [];
+  List<OrderCart> orderCartProducts = [];
 
   bool isCart = false;
-  var subTotal = 0.obs;
 
   @override
   void onReady() {
@@ -40,10 +42,11 @@ class DataController extends GetxController {
       if (response.docs.isNotEmpty) {
         for (var result in response.docs) {
           userLoaded.add(UserModel(
-              userEmail: result['userEmail'],
-              userName: result['userName'],
-              userAddress: result['userAddress'],
-              userGender: result['userGender']));
+            userEmail: result['userEmail'],
+            userName: result['userName'],
+            userAddress: result['userAddress'],
+            userGender: result['userGender'],
+          ));
         }
       }
       user.addAll(userLoaded);
@@ -74,6 +77,30 @@ class DataController extends GetxController {
         'productImage': imageUrl,
         "productCategory": productdata['p_category'],
         "productVideo": productdata['p_video']
+      });
+    } catch (exception) {
+      return;
+    }
+  }
+
+  Future<void> addProfileImage(File image) async {
+    var pathimage = image.toString();
+    var temp = pathimage.lastIndexOf('/');
+    var result = pathimage.substring(temp + 1);
+    final ref = FirebaseStorage.instance
+        .ref()
+        .child(auth.currentUser!.uid)
+        .child(result);
+    var response = await ref.putFile(image);
+
+    var imageUrl = await ref.getDownloadURL();
+
+    try {
+      FirebaseFirestore.instance
+          .collection('User')
+          .doc(auth.currentUser!.uid)
+          .update({
+        'userImage': imageUrl,
       });
     } catch (exception) {
       return;
@@ -117,7 +144,6 @@ class DataController extends GetxController {
     for (var element in cartProduct) {
       total += element.productPrice! * element.productQuantity!;
     }
-    // print("this$total");
     return total;
   }
 
@@ -134,7 +160,6 @@ class DataController extends GetxController {
       response.delete();
       cartProduct
           .removeWhere((element) => element.productId == cartData.productId);
-      // print(cartProduct.length);
     } catch (exception) {
       return;
     }
@@ -192,18 +217,88 @@ class DataController extends GetxController {
     }
   }
 
-  Future<void> placeOrder(Orders orderPlace) async {
+  Future<void> placeOrder(
+      List<Cart> orders, double total, Shipping shippingData) async {
     final auth = FirebaseAuth.instance.currentUser!.uid;
-
     try {
       var response = FirebaseFirestore.instance
           .collection('User')
           .doc(auth)
-          .collection('Order');
-    } on FirebaseException {
-      // print("Error $e");
+          .collection('Order')
+          .doc();
+
+      var cartResponse = FirebaseFirestore.instance
+          .collection('User')
+          .doc(auth)
+          .collection('Cart')
+          .get();
+
+      response.set({
+        "firstName": shippingData.firstName,
+        "lastName": shippingData.lastName,
+        "city": shippingData.city,
+        "address": shippingData.address,
+        "phoneNumber": shippingData.number,
+        "totalPrice": total,
+        "status": shippingData.status
+      });
+      for (int i = 0; i < orders.length; i++) {
+        response.update({
+          "Product": FieldValue.arrayUnion([
+            {
+              'productId': orders[i].productId,
+              'productName': orders[i].productName,
+              'productPrice': orders[i].productPrice,
+              'productQuantity': orders[i].productQuantity,
+            },
+          ])
+        });
+      }
+      cartResponse.then((snapshot) {
+        for (DocumentSnapshot ds in snapshot.docs) {
+          ds.reference.delete();
+        }
+      });
+      update();
     } catch (error) {
       // print("error $error");
+    }
+  }
+
+  Future getOrder() async {
+    orderData = [];
+
+    try {
+      final List<OrderModel> allOrders = [];
+      // final List<Cart> allOrdersProducts = [];
+      QuerySnapshot response = await firebaseInstance
+          .collection('User')
+          .doc(auth.currentUser!.uid)
+          .collection('Order')
+          .get();
+
+      if (response.docs.isNotEmpty) {
+        for (var result in response.docs) {
+          allOrders.add(OrderModel(
+            firstName: result['firstName'],
+            lastName: result['lastName'],
+            city: result['city'],
+            address: result['address'],
+            phoneNumber: result['phoneNumber'],
+            total: result['totalPrice'],
+            status: result['status'],
+            orders: result['Product'],
+          ));
+        }
+      }
+
+      orderData.addAll(allOrders);
+      update();
+      // print(orderData[1].orders[1]);
+    } on FirebaseException catch (e) {
+      print("Error $e");
+    } catch (error) {
+      print("error $error");
     }
   }
 
@@ -261,10 +356,10 @@ class DataController extends GetxController {
       }
       specialProducts.addAll(lodadedProduct);
       update();
-    } on FirebaseException {
-      // print("Error $e");
+    } on FirebaseException catch (e) {
+      print("Error $e");
     } catch (error) {
-      // print("error $error");
+      print("error $error");
     }
   }
 

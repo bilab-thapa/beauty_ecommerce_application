@@ -6,12 +6,12 @@ import 'color_manager.dart';
 
 ThemeData theme() {
   return ThemeData(
-    scaffoldBackgroundColor: ColorManager.kPrimaryLightColor,
+    scaffoldBackgroundColor: ColorManager.kTextColor,
     appBarTheme: appBarTheme(),
     textTheme: textTheme(),
     inputDecorationTheme: inputDecorationTheme(),
     visualDensity: VisualDensity.adaptivePlatformDensity,
-    listTileTheme: ListTileThemeData(iconColor: Colors.white),
+    listTileTheme: const ListTileThemeData(iconColor: Colors.white),
   );
 }
 

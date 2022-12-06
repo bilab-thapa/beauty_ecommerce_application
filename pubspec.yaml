@@ -48,6 +48,14 @@ dependencies:
   google_fonts: ^3.0.1
   youtube_player_flutter: ^8.1.1
   khalti_flutter: ^2.1.0
+  fluttericon: ^2.0.0
+  bottom_bar: ^2.0.3
+  bottom_navy_bar: ^6.0.0
+  bdd_widget_test: ^1.4.3
+  build_runner: ^2.3.2
+  flutter_slidable: ^2.0.0
+  flutter_swiper: ^1.1.6
+  carousel_slider: ^4.1.1
 
 
 dev_dependencies:

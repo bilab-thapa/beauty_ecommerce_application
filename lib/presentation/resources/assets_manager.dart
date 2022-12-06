@@ -58,11 +58,11 @@ class ImageAssets {
   static const String imageSlider2 = "$imagePath/second.png";
   static const String imageSlider3 = "$imagePath/third.png";
   static const String imageSlider4 = "$imagePath/fourth.png";
-
   static const String masterCard = "$imagePath/mastercard-2.png";
   static const String applePay = "$imagePath/apple_pay.png";
   static const String googlePay = "$imagePath/google-pay.png";
   static const String patternSuccess = "$imagePath/pattern_success.png";
+  static const String successImage = "$imagePath/success.png";
   static const String visa = "$imagePath/visa.png";
   static const String paypal = "$imagePath/paypal.png";
 }

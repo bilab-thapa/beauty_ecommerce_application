@@ -56,7 +56,6 @@ class _AddProductScreenState extends State<AddProductScreen> {
               shrinkWrap: true,
               children: [
                 const SizedBox(
-
                   height: 20,
                 ),
                 TextFormField(

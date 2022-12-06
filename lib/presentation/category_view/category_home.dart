@@ -118,27 +118,17 @@ class _CategoryState extends State<Category> {
     }
 
     Widget buildCategory() {
-      return Column(
+      return Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: <Widget>[
-          SizedBox(height: SizeConfig.screenHeight * 0.02),
-          Row(
-            children: <Widget>[
-              buildEyesIcon(),
-              SizedBox(width: SizeConfig.screenWidth * 0.015),
-              buildLipIcon(),
-              SizedBox(width: SizeConfig.screenWidth * 0.015),
-              buildHairIcon(),
-              SizedBox(width: SizeConfig.screenWidth * 0.015),
-              buildSkinIcon(),
-              SizedBox(width: SizeConfig.screenWidth * 0.015),
-            ],
-          ),
+          buildEyesIcon(),
+          buildLipIcon(),
+          buildHairIcon(),
+          buildSkinIcon(),
         ],
       );
     }
 
-    return Row(
-      children: [buildCategory()],
-    );
+    return buildCategory();
   }
 }

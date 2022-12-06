@@ -4,8 +4,7 @@ import 'package:beauty_e_commerce/presentation/home_screen/components/special_fo
 import 'package:beauty_e_commerce/presentation/resources/color_manager.dart';
 import 'package:beauty_e_commerce/presentation/resources/size_config.dart';
 import 'package:beauty_e_commerce/presentation/widgets/banner.dart';
-import 'package:beauty_e_commerce/presentation/widgets/bottom_nav.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:beauty_e_commerce/presentation/widgets/drawer.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -43,6 +42,17 @@ class _HomeScreenState extends State<HomeScreen> {
             "HomeScreen",
             style: GoogleFonts.poppins(color: Colors.white, fontSize: 28),
           ),
+          actions: <Widget>[
+            IconButton(
+              icon: const Icon(
+                Icons.shopping_cart,
+                color: Colors.white,
+              ),
+              onPressed: () {
+                Navigator.pushNamed(context, Routes.cartView);
+              },
+            )
+          ],
           centerTitle: true,
         ),
         body: Container(
@@ -77,77 +87,7 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
           ),
         ),
-        drawer: Drawer(
-          backgroundColor: ColorManager.black,
-          child: ListView(
-            padding: const EdgeInsets.all(0),
-            children: [
-              DrawerHeader(
-                decoration: BoxDecoration(
-                  color: ColorManager.kPrimaryColor,
-                ),
-                child: UserAccountsDrawerHeader(
-                  decoration: BoxDecoration(
-                    color: ColorManager.kPrimaryColor,
-                  ),
-                  accountName: Text(
-                    controller.user[0].userName!,
-                    style: const TextStyle(fontSize: 18),
-                  ),
-                  accountEmail: Text(controller.user[0].userEmail!),
-                  currentAccountPictureSize: const Size.square(50),
-                  currentAccountPicture: CircleAvatar(
-                    backgroundColor: ColorManager.kSecondaryColor,
-                    child: Text(
-                      controller.user[0].userName![0].toString().toUpperCase(),
-                      style: GoogleFonts.poppins(
-                          fontSize: 30.0, color: ColorManager.black),
-                    ),
-                  ),
-                ),
-              ),
-              ListTile(
-                leading: const Icon(Icons.person),
-                title: const Text(
-                  ' My Profile ',
-                ),
-                onTap: () {
-                  Navigator.pop(context);
-                },
-              ),
-              ListTile(
-                leading: const Icon(Icons.workspace_premium),
-                title: const Text(' Go Pro '),
-                onTap: () {
-                  Navigator.pop(context);
-                },
-              ),
-              ListTile(
-                leading: const Icon(Icons.video_label),
-                title: const Text(' Saved Videos '),
-                onTap: () {
-                  Navigator.pop(context);
-                },
-              ),
-              ListTile(
-                leading: const Icon(Icons.edit),
-                title: const Text(' Edit Profile '),
-                onTap: () {
-                  Navigator.pop(context);
-                },
-              ),
-              ListTile(
-                leading: const Icon(Icons.logout),
-                title: const Text('LogOut'),
-                onTap: () {
-                  FirebaseAuth.instance.signOut();
-                  Navigator.popAndPushNamed(context, Routes.signInRoute);
-                },
-              ),
-            ],
-          ),
-        ),
-        bottomNavigationBar: const BottomNav(),
+        drawer: const DrawerWidget(),
       ),
     );
   }

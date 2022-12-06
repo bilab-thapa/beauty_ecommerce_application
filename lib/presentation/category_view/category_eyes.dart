@@ -5,6 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 import '../../controller/data_controller.dart';
 import '../product_detail/detail_screen.dart';
 import '../resources/color_manager.dart';
+import '../resources/routes_manager.dart';
 import '../resources/size_config.dart';
 
 class CategoryEyes extends StatelessWidget {
@@ -29,6 +30,17 @@ class CategoryEyes extends StatelessWidget {
             style: GoogleFonts.poppins(
                 fontSize: 24, color: ColorManager.kTextColor),
           ),
+          actions: <Widget>[
+            IconButton(
+              icon: const Icon(
+                Icons.shopping_cart,
+                color: Colors.white,
+              ),
+              onPressed: () {
+                Navigator.pushNamed(context, Routes.cartView);
+              },
+            )
+          ],
         ),
         body: GetBuilder<DataController>(
           builder: (controller) => controller.eyes.isEmpty

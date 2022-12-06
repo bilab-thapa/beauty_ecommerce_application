@@ -6,7 +6,7 @@ import 'package:image_picker/image_picker.dart';
 
 class ProductImagePicker extends StatefulWidget {
   final void Function(File pickedImage) getImageValue;
-  ProductImagePicker(this.getImageValue);
+  const ProductImagePicker(this.getImageValue);
 
   @override
   State<ProductImagePicker> createState() => _ProductImagePickerState();
@@ -18,7 +18,7 @@ class _ProductImagePickerState extends State<ProductImagePicker> {
     Get.bottomSheet(
       SingleChildScrollView(
         child: ClipRRect(
-          borderRadius: BorderRadius.only(
+          borderRadius: const BorderRadius.only(
             topLeft: Radius.circular(10.0),
             topRight: Radius.circular(10.0),
           ),
@@ -30,37 +30,37 @@ class _ProductImagePickerState extends State<ProductImagePicker> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  Text(
+                  const Text(
                     "Pic Image From",
                     style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                     textAlign: TextAlign.center,
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 10,
                   ),
                   ElevatedButton.icon(
                     onPressed: () {
                       pickImage(ImageSource.camera);
                     },
-                    icon: Icon(Icons.camera),
-                    label: Text("Camera"),
+                    icon: const Icon(Icons.camera),
+                    label: const Text("Camera"),
                   ),
                   ElevatedButton.icon(
                     onPressed: () {
                       pickImage(ImageSource.gallery);
                     },
-                    icon: Icon(Icons.image),
-                    label: Text("Gallery"),
+                    icon: const Icon(Icons.image),
+                    label: const Text("Gallery"),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 10,
                   ),
                   ElevatedButton.icon(
                     onPressed: () {
                       Get.back();
                     },
-                    icon: Icon(Icons.close),
-                    label: Text("Cancel"),
+                    icon: const Icon(Icons.close),
+                    label: const Text("Cancel"),
                   ),
                 ],
               ),
@@ -72,13 +72,13 @@ class _ProductImagePickerState extends State<ProductImagePicker> {
   }
 
   pickImage(ImageSource imageType) async {
-    final ImagePicker _picker = ImagePicker();
+    final ImagePicker picker = ImagePicker();
     try {
-      final photo = await _picker.pickImage(source: imageType);
+      final photo = await picker.pickImage(source: imageType);
       if (photo == null) return;
       final tempImage = File(photo.path);
       setState(() {
-        this.pickedImage = tempImage;
+        pickedImage = tempImage;
         print(pickedImage);
         widget.getImageValue(pickedImage);
       });
@@ -94,7 +94,7 @@ class _ProductImagePickerState extends State<ProductImagePicker> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: [
-        Container(
+        SizedBox(
           width: 100,
           height: 100,
           child: pickedImage != null
@@ -109,8 +109,8 @@ class _ProductImagePickerState extends State<ProductImagePicker> {
         ),
         ElevatedButton.icon(
           onPressed: imagePickerOption,
-          icon: Icon(Icons.image),
-          label: Text('Add Image'),
+          icon: const Icon(Icons.image),
+          label: const Text('Add Image'),
         ),
       ],
     );
