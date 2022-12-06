@@ -1,6 +1,7 @@
 import 'package:beauty_e_commerce/presentation/profile/components/profile_ui.dart';
 import 'package:beauty_e_commerce/presentation/resources/color_manager.dart';
 import 'package:beauty_e_commerce/presentation/resources/size_config.dart';
+import 'package:beauty_e_commerce/presentation/widgets/default_button.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
@@ -31,9 +32,9 @@ class _DetailScreenState extends State<DetailScreen> {
   Widget build(BuildContext context) {
     scroll() {
       return DraggableScrollableSheet(
-          initialChildSize: 0.6,
+          initialChildSize: 0.5,
           maxChildSize: 1.0,
-          minChildSize: 0.6,
+          minChildSize: 0.5,
           builder: (context, scrollController) {
             return Container(
               padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -75,17 +76,16 @@ class _DetailScreenState extends State<DetailScreen> {
                     const SizedBox(
                       height: 15,
                     ),
-                    ElevatedButton(
-                      onPressed: () {
-                        controller.addToCart(widget.product);
-                      },
-                      child: const Text('Add to Cart'),
-                    ),
+                    DefaultButton(
+                        text: 'Add to Cart',
+                        press: () {
+                          controller.addToCart(widget.product);
+                        }),
                     Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 10),
+                      padding: const EdgeInsets.symmetric(vertical: 20),
                       child: Divider(
                         color: ColorManager.white,
-                        height: 4,
+                        height: 10,
                       ),
                     ),
                     Text("Description",
@@ -97,6 +97,7 @@ class _DetailScreenState extends State<DetailScreen> {
                       height: 10,
                     ),
                     Text(widget.product.productDesc,
+                        textAlign: TextAlign.center,
                         style: GoogleFonts.poppins(
                             fontSize: 20, color: ColorManager.kTextColor)),
                     Padding(
@@ -116,9 +117,9 @@ class _DetailScreenState extends State<DetailScreen> {
                     ),
                     Container(
                       decoration: BoxDecoration(
-                        border: Border.all(
-                            color: ColorManager.kPrimaryColor, width: 10),
-                      ),
+                          border: Border.all(
+                              color: ColorManager.kPrimaryColor, width: 10),
+                          borderRadius: BorderRadius.circular(20)),
                       height: SizeConfig.screenHeight * 0.3,
                       child: YoutubePlayer(
                         controller: _controller,
@@ -149,7 +150,8 @@ class _DetailScreenState extends State<DetailScreen> {
                           ),
                         ],
                       ),
-                    )
+                    ),
+                    SizedBox(height: SizeConfig.screenHeight * 0.05)
                   ],
                 ),
               ),
@@ -173,7 +175,7 @@ class _DetailScreenState extends State<DetailScreen> {
           child: Stack(
             children: [
               SizedBox(
-                height: SizeConfig.screenHeight * 0.42,
+                height: SizeConfig.screenHeight * 0.5,
                 width: double.infinity,
                 child: Image.network(
                   widget.product.productImage,

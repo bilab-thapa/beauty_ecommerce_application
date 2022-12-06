@@ -1,10 +1,8 @@
 import 'package:beauty_e_commerce/presentation/resources/color_manager.dart';
 import 'package:flutter/material.dart';
-import '../../resources/assets_manager.dart';
 import '../../resources/size_config.dart';
 import '../../resources/strings_manager.dart';
 import '../../widgets/no_account.dart';
-import '../../widgets/social_card.dart';
 import 'sign_up_form.dart';
 
 class SignUpBody extends StatelessWidget {
@@ -25,39 +23,20 @@ class SignUpBody extends StatelessWidget {
                 Text(
                   AppStrings.registerAccount,
                   style: TextStyle(
-                    color: ColorManager.kPrimaryColor,
+                    color: ColorManager.black,
                     fontSize: getProportionateScreenWidth(35),
                     fontWeight: FontWeight.bold,
                   ),
                 ),
                 SizedBox(height: SizeConfig.screenHeight * 0.02),
-                const Text(
+                Text(
                   AppStrings.signUpPageText,
                   textAlign: TextAlign.center,
+                  style: TextStyle(color: ColorManager.black),
                 ),
                 SizedBox(height: SizeConfig.screenHeight * 0.05),
                 const SignUpForm(),
                 SizedBox(height: SizeConfig.screenHeight * 0.05),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    SocialCard(
-                      icon: ImageAssets.googleIcon,
-                      press: () {},
-                    ),
-                    SocialCard(
-                      icon: ImageAssets.facebookIcon,
-                      press: () {},
-                    ),
-                    SocialCard(
-                      icon: ImageAssets.twitterIcon,
-                      press: () {},
-                    ),
-                  ],
-                ),
-                SizedBox(
-                  height: getProportionateScreenHeight(20),
-                ),
                 const YesAccountText(),
               ],
             ),

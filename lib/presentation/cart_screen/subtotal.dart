@@ -1,5 +1,5 @@
-import 'package:beauty_e_commerce/models/order_model.dart';
 import 'package:beauty_e_commerce/presentation/resources/color_manager.dart';
+import 'package:beauty_e_commerce/presentation/resources/routes_manager.dart';
 import 'package:beauty_e_commerce/presentation/resources/size_config.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -26,26 +26,11 @@ class _SubTotalState extends State<SubTotal> {
 
   @override
   Widget build(BuildContext context) {
-    List<Orders> cartOrder = [];
-    for (var result in controller.cartProduct) {
-      cartOrder.add(
-        Orders(
-
-          productPrice: result.productPrice,
-          productName: result.productName,
-          image: result.image,
-          productQuantity: result.productQuantity,
-          totalPrice: controller.subTotal.toDouble(),
-
-        ),
-      );
-    }
-
     return Container(
       height: SizeConfig.screenHeight * 0.2,
       width: SizeConfig.screenWidth,
       decoration: BoxDecoration(
-        color: ColorManager.white,
+        color: ColorManager.kPrimaryColor,
         borderRadius: const BorderRadius.only(
           topLeft: Radius.circular(30),
           topRight: Radius.circular(30),
@@ -58,8 +43,8 @@ class _SubTotalState extends State<SubTotal> {
             left: SizeConfig.screenWidth * 0.1,
             child: Text(
               'Total',
-              style:
-                  GoogleFonts.poppins(color: ColorManager.black, fontSize: 28),
+              style: GoogleFonts.poppins(
+                  color: ColorManager.kTextColor, fontSize: 28),
             ),
           ),
           Positioned(
@@ -68,7 +53,7 @@ class _SubTotalState extends State<SubTotal> {
             child: Text(
               controller.cartTotal().toString(),
               style: GoogleFonts.poppins(
-                  color: ColorManager.black,
+                  color: ColorManager.kTextColor,
                   fontSize: 26,
                   fontWeight: FontWeight.bold),
             ),
@@ -81,48 +66,22 @@ class _SubTotalState extends State<SubTotal> {
                 height: SizeConfig.screenHeight * 0.08,
                 child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: ColorManager.kPrimaryColor,
+                      backgroundColor: ColorManager.kTextColor,
                       elevation: 0,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(20.0),
                       ),
                     ),
-                    onPressed: () {},
-                    // onPressed: () {
-                    //   KhaltiScope.of(context).pay(
-                    //     config: PaymentConfig(
-                    //       amount: 1000,
-                    //       productIdentity: 'dell-g5-g5510-2021',
-                    //       productName: 'Dell G5 G5510 2021',
-                    //       productUrl: 'https://www.khalti.com/#/bazaar',
-                    //       additionalData: {
-                    //         'vendor': 'Khalti Bazaar',
-                    //       },
-                    //       mobile: '9810345454',
-                    //       mobileReadOnly: true,
-                    //     ),
-                    //     preferences: [
-                    //       PaymentPreference.khalti,
-                    //       PaymentPreference.connectIPS,
-                    //       PaymentPreference.mobileBanking,
-                    //     ],
-                    //     onSuccess: (successModel) {
-                    //       Get.snackbar('Alert', 'Success',
-                    //           snackPosition: SnackPosition.TOP);
-                    //       print(cartOrder);
-                    //       controller.placeOrder(Orders(
-                    //           totalPrice: controller.cartTotal(),
-                    //           product: cartOrder));
-                    //       Navigator.pushNamed(context, Routes.success);
-                    //     },
-                    //     onFailure: (failureModel) {
-                    //       Get.snackbar('Alert', 'Failed',
-                    //           snackPosition: SnackPosition.TOP);
-                    //     },
-                    //     // onCancel: onCancel,
-                    //   );
-                    // },
-                    child: const Text('Checkout')),
+                    onPressed: () {
+                      Navigator.pushNamed(context, Routes.shippingDetails);
+                    },
+                    child: Text(
+                      'Checkout',
+                      style: GoogleFonts.poppins(
+                          color: ColorManager.kPrimaryColor,
+                          fontSize: 26,
+                          fontWeight: FontWeight.bold),
+                    )),
               )),
         ],
       ),

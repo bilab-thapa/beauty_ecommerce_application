@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:beauty_e_commerce/app/constants/app_constants.dart';
 import 'package:beauty_e_commerce/presentation/helper/keyboard_util.dart';
@@ -10,10 +9,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import '../../resources/assets_manager.dart';
 import '../../resources/size_config.dart';
 import '../../resources/strings_manager.dart';
-import '../../widgets/custom_suffix_icon.dart';
 import '../../widgets/default_button.dart';
 
 class SignUpForm extends StatefulWidget {
@@ -35,21 +32,18 @@ class _SignUpFormState extends State<SignUpForm> {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
   final addressController = TextEditingController();
+  String? select;
   void clear() {
-    // await AwesomeNotifications().createNotification(
-    //   content: NotificationContent(
-    //       id: 1, channelKey: 'Basic', title: 'Account Registration Successful'),
-    // );
     nameController.clear();
     emailController.clear();
     passwordController.clear();
     addressController.clear();
     KeyboardUtil.hideKeyboard(context);
     Get.snackbar('Congratulations', 'Registration Successful',
-        snackPosition: SnackPosition.BOTTOM);
-    Timer(Duration(seconds: 3), () {
+        snackPosition: SnackPosition.TOP);
+    Timer(const Duration(seconds: 2), () {
       Navigator.push(
-          context, MaterialPageRoute(builder: (_) => SignInScreen()));
+          context, MaterialPageRoute(builder: (_) => const SignInScreen()));
     });
   }
 
@@ -75,41 +69,51 @@ class _SignUpFormState extends State<SignUpForm> {
       });
       result = await FirebaseAuth.instance.createUserWithEmailAndPassword(
           email: emailController.text, password: passwordController.text);
-    } on PlatformException catch (error) {
-      var message = "Please Check Your Internet Connection ";
-      if (error.message != null) {
-        message = error.message!;
-      }
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: Text(message.toString()),
-        duration: const Duration(milliseconds: 600),
-        backgroundColor: Theme.of(context).primaryColor,
-      ));
-      setState(() {
-        isLoading = false;
-      });
+    } on PlatformException {
+      Get.snackbar('Error', 'Please Check Your Internet Connection',
+          snackPosition: SnackPosition.TOP);
     } catch (error) {
       setState(() {
         isLoading = false;
       });
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: Text(error.toString()),
-        duration: const Duration(milliseconds: 600),
-        backgroundColor: Theme.of(context).primaryColor,
-      ));
+
+      Get.snackbar('Error', 'User Already Exists',
+          snackPosition: SnackPosition.TOP);
     }
     FirebaseFirestore.instance.collection("User").doc(result!.user!.uid).set({
       "userName": nameController.text,
       "userId": result.user!.uid,
       "userEmail": emailController.text,
       "userAddress": addressController.text,
-      "userGender": "",
+      "userGender": select,
+      "userImage": "",
     });
 
     setState(() {
       isLoading = false;
       clear();
     });
+  }
+
+  List gender = ["Male", "Female"];
+
+  Row addRadioButton(int btnValue, String title) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.start,
+      children: <Widget>[
+        Radio(
+          activeColor: ColorManager.kPrimaryColor,
+          value: gender[btnValue],
+          groupValue: select,
+          onChanged: (value) {
+            setState(() {
+              select = value;
+            });
+          },
+        ),
+        Text(title)
+      ],
+    );
   }
 
   void vaildation() async {
@@ -171,7 +175,6 @@ class _SignUpFormState extends State<SignUpForm> {
                       getProportionateScreenWidth(10)),
                   child: Icon(
                     Icons.person,
-                    size: 34,
                     color: ColorManager.kPrimaryColor,
                   ),
                 ),
@@ -188,9 +191,17 @@ class _SignUpFormState extends State<SignUpForm> {
           ),
           TextFormField(
             controller: emailController,
-            decoration: const InputDecoration(
-                suffixIcon: CustomSurffixIcon(
-                  svgIcon: ImageAssets.emailIcon,
+            decoration: InputDecoration(
+                suffixIcon: Padding(
+                  padding: EdgeInsets.fromLTRB(
+                      0,
+                      getProportionateScreenWidth(10),
+                      getProportionateScreenWidth(20),
+                      getProportionateScreenWidth(10)),
+                  child: Icon(
+                    Icons.email,
+                    color: ColorManager.kPrimaryColor,
+                  ),
                 ),
                 hintText: AppStrings.enterEmail,
                 labelText: AppStrings.email),
@@ -205,9 +216,17 @@ class _SignUpFormState extends State<SignUpForm> {
           ),
           TextFormField(
             controller: passwordController,
-            decoration: const InputDecoration(
-                suffixIcon: CustomSurffixIcon(
-                  svgIcon: ImageAssets.lockIcon,
+            decoration: InputDecoration(
+                suffixIcon: Padding(
+                  padding: EdgeInsets.fromLTRB(
+                      0,
+                      getProportionateScreenWidth(10),
+                      getProportionateScreenWidth(20),
+                      getProportionateScreenWidth(10)),
+                  child: Icon(
+                    Icons.lock,
+                    color: ColorManager.kPrimaryColor,
+                  ),
                 ),
                 hintText: AppStrings.enterPassword,
                 labelText: AppStrings.password),
@@ -222,9 +241,17 @@ class _SignUpFormState extends State<SignUpForm> {
           ),
           TextFormField(
             controller: addressController,
-            decoration: const InputDecoration(
-                suffixIcon: CustomSurffixIcon(
-                  svgIcon: ImageAssets.locationPointIcon,
+            decoration: InputDecoration(
+                suffixIcon: Padding(
+                  padding: EdgeInsets.fromLTRB(
+                      0,
+                      getProportionateScreenWidth(10),
+                      getProportionateScreenWidth(20),
+                      getProportionateScreenWidth(10)),
+                  child: Icon(
+                    Icons.location_on,
+                    color: ColorManager.kPrimaryColor,
+                  ),
                 ),
                 hintText: AppStrings.addressTextField,
                 labelText: AppStrings.address),
@@ -234,8 +261,14 @@ class _SignUpFormState extends State<SignUpForm> {
               });
             },
           ),
+          Row(
+            children: <Widget>[
+              addRadioButton(0, 'Male'),
+              addRadioButton(1, 'Female'),
+            ],
+          ),
           const SizedBox(
-            height: 40,
+            height: 24,
           ),
           DefaultButton(
               text: AppStrings.signUp,

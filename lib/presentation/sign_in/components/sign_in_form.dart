@@ -3,13 +3,11 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import '../../../app/constants/app_constants.dart';
 import '../../resources/color_manager.dart';
 import '../../resources/routes_manager.dart';
 import '../../resources/size_config.dart';
 import '../../resources/strings_manager.dart';
 import '../../widgets/default_button.dart';
-import '../../widgets/form_error.dart';
 
 class SignInForm extends StatefulWidget {
   const SignInForm({super.key});
@@ -44,17 +42,12 @@ class _SignInFormState extends State<SignInForm> {
       if (error.message != null) {
         message = error.message!;
       }
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(message.toString()),
-          duration: const Duration(milliseconds: 800),
-          backgroundColor: Theme.of(context).primaryColor,
-        ),
-      );
+
       setState(() {
         isLoading = false;
       });
     } catch (error) {
+      Get.snackbar('Error', 'Incorrect Email or Password');
       setState(() {
         isLoading = false;
       });
@@ -90,7 +83,7 @@ class _SignInFormState extends State<SignInForm> {
               const Spacer(),
               GestureDetector(
                 onTap: () {
-                  // Navigator.pushNamed(context, ForgotPasswordScreen.routeName);
+                  Navigator.pushNamed(context, Routes.forgot);
                 },
                 child: const Text(
                   AppStrings.forgotPassword,
@@ -99,7 +92,6 @@ class _SignInFormState extends State<SignInForm> {
               )
             ],
           ),
-          FormError(errors: _signInController.errors),
           SizedBox(height: getProportionateScreenHeight(20)),
           DefaultButton(
             text: AppStrings.signIn,
@@ -119,23 +111,7 @@ class _SignInFormState extends State<SignInForm> {
       () => TextFormField(
         controller: passwordController,
         obscureText: _signInController.isObscureText.value,
-        onSaved: (newValue) => _signInController.password = newValue,
         cursorColor: ColorManager.grey1,
-        onChanged: (value) {
-          if (value.isNotEmpty) {
-            _signInController.removeError(error: AppStrings.kPassNullError);
-          } else if (value.length <= 6) {
-            _signInController.removeError(error: AppStrings.kShortPassError);
-          }
-          return;
-        },
-        validator: (value) {
-          if (value!.isEmpty) {
-            _signInController.addError(error: AppStrings.kPassNullError);
-            return "";
-          }
-          return null;
-        },
         decoration: InputDecoration(
           labelText: AppStrings.password,
           hintText: AppStrings.enterPassword,
@@ -162,29 +138,9 @@ class _SignInFormState extends State<SignInForm> {
     return TextFormField(
       controller: emailController,
       keyboardType: TextInputType.emailAddress,
-      onSaved: (newValue) => _signInController.email = newValue,
-      onChanged: (value) {
-        if (value.isNotEmpty) {
-          _signInController.removeError(error: AppStrings.kEmailNullError);
-        } else if (emailValidatorRegExp.hasMatch(value)) {
-          _signInController.removeError(error: AppStrings.kInvalidEmailError);
-        }
-        return;
-      },
-      validator: (value) {
-        if (value!.isEmpty) {
-          _signInController.addError(error: AppStrings.kEmailNullError);
-          return AppStrings.emptyString;
-        } else if (!emailValidatorRegExp.hasMatch(value)) {
-          _signInController.addError(error: AppStrings.kInvalidEmailError);
-          return AppStrings.emptyString;
-        }
-        return null;
-      },
       decoration: InputDecoration(
         labelText: AppStrings.email,
         hintText: AppStrings.enterEmail,
-        // floatingLabelBehavior: FloatingLabelBehavior.always,
         suffixIcon: Icon(
           Icons.email,
           color: ColorManager.kPrimaryColor,

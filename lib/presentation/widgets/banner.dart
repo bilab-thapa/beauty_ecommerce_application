@@ -11,10 +11,13 @@ class BannerContent extends StatelessWidget {
   final String? text, image;
   @override
   Widget build(BuildContext context) {
-    return Image.asset(
-      image!,
-      height: getProportionateScreenHeight(265),
-      width: getProportionateScreenWidth(235),
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(20),
+      child: Image.asset(
+        image!,
+        height: getProportionateScreenHeight(265),
+        width: getProportionateScreenWidth(235),
+      ),
     );
   }
 }
@@ -30,17 +33,17 @@ class BannerBodyState extends State<BannerBody> {
   final BannerScreenController introScreenController =
       Get.put(BannerScreenController());
 
-
   @override
   Widget build(BuildContext context) {
     return SizedBox(
+      // decoration: BoxDecoration(borderRadius: BorderRadius.circular(20)),
       width: double.infinity,
       height: 250,
       child: Column(
         children: <Widget>[
           SizedBox(height: SizeConfig.screenHeight * 0.02),
           Expanded(
-            flex: 3,
+            flex: 4,
             child: PageView.builder(
               onPageChanged: (value) {
                 introScreenController.assignValue(value);
@@ -48,7 +51,6 @@ class BannerBodyState extends State<BannerBody> {
               itemCount: introScreenController.bannerData.length,
               itemBuilder: (context, index) => BannerContent(
                 image: introScreenController.bannerData[index].imgString,
-
               ),
             ),
           ),

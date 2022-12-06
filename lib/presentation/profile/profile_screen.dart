@@ -1,8 +1,8 @@
 import 'package:beauty_e_commerce/presentation/profile/components/profile_body.dart';
-import 'package:beauty_e_commerce/presentation/resources/color_manager.dart';
-import 'package:beauty_e_commerce/presentation/widgets/bottom_nav.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+
+import '../widgets/drawer.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
@@ -10,9 +10,7 @@ class ProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: ColorManager.kSecondaryColor,
       appBar: AppBar(
-        automaticallyImplyLeading: false,
         title: Text(
           "Profile",
           style: GoogleFonts.poppins(color: Colors.white, fontSize: 28),
@@ -20,7 +18,7 @@ class ProfileScreen extends StatelessWidget {
         centerTitle: true,
       ),
       body: ProfileBody(),
-      bottomNavigationBar: const BottomNav(),
+      drawer: const DrawerWidget(),
     );
   }
 }

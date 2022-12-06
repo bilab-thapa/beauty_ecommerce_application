@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-
 import '../../controller/data_controller.dart';
 import '../product_detail/detail_screen.dart';
 import '../resources/color_manager.dart';
+import '../resources/routes_manager.dart';
 import '../resources/size_config.dart';
 
 class CategoryLips extends StatelessWidget {
@@ -28,6 +28,17 @@ class CategoryLips extends StatelessWidget {
             style: GoogleFonts.poppins(
                 fontSize: 24, color: ColorManager.kTextColor),
           ),
+          actions: <Widget>[
+            IconButton(
+              icon: const Icon(
+                Icons.shopping_cart,
+                color: Colors.white,
+              ),
+              onPressed: () {
+                Navigator.pushNamed(context, Routes.cartView);
+              },
+            )
+          ],
         ),
         body: GetBuilder<DataController>(
           builder: (controller) => controller.lips.isEmpty
@@ -66,14 +77,13 @@ class CategoryLips extends StatelessWidget {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 SizedBox(
-                                  height: SizeConfig.screenHeight * 0.02,
+                                  height: SizeConfig.screenHeight * 0.005,
                                 ),
                                 SizedBox(
                                   height: SizeConfig.screenHeight * 0.2,
                                   child: CircleAvatar(
                                     radius: 100,
-                                    backgroundColor:
-                                        ColorManager.kSecondaryColor,
+                                    backgroundColor: ColorManager.kPrimaryColor,
                                     child: CircleAvatar(
                                       backgroundImage: NetworkImage(
                                         controller.lips[index].productImage,
