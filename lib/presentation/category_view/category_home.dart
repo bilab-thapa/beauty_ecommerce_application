@@ -1,11 +1,14 @@
-import 'package:beauty_e_commerce/presentation/category_view/category_eyes.dart';
-import 'package:beauty_e_commerce/presentation/category_view/category_skin.dart';
-import 'package:beauty_e_commerce/presentation/category_view/category_hair.dart';
-import 'package:beauty_e_commerce/presentation/category_view/category_lips.dart';
+import 'package:beauty_e_commerce/presentation/category_view/category_eyeliner.dart';
+import 'package:beauty_e_commerce/presentation/category_view/category_foundation.dart';
+import 'package:beauty_e_commerce/presentation/category_view/category_lip_gloss.dart';
+import 'package:beauty_e_commerce/presentation/category_view/category_lipstick.dart';
+import 'package:beauty_e_commerce/presentation/category_view/category_mascara.dart';
+import 'package:beauty_e_commerce/presentation/category_view/category_serum.dart';
 import 'package:beauty_e_commerce/presentation/resources/size_config.dart';
 import 'package:flutter/material.dart';
 
 import '../resources/color_manager.dart';
+import 'category_moisturizer.dart';
 
 class Category extends StatefulWidget {
   const Category({super.key});
@@ -17,11 +20,11 @@ class Category extends StatefulWidget {
 class _CategoryState extends State<Category> {
   @override
   Widget build(BuildContext context) {
-    Widget buildLipIcon() {
+    Widget buildLipStickIcon() {
       return InkWell(
         onTap: () {
           Navigator.push(context, MaterialPageRoute(builder: (_) {
-            return const CategoryLips();
+            return const CategoryLipStick();
           }));
         },
         child: Card(
@@ -35,18 +38,18 @@ class _CategoryState extends State<Category> {
             height: SizeConfig.screenHeight * 0.1,
             width: SizeConfig.screenWidth * 0.2,
             child: const Center(
-              child: Text('Lips'),
+              child: Text('Lip Stick'),
             ),
           ),
         ),
       );
     }
 
-    Widget buildHairIcon() {
+    Widget buildLipGlossIcon() {
       return InkWell(
         onTap: () {
           Navigator.push(context, MaterialPageRoute(builder: (_) {
-            return const CategoryHair();
+            return const CategoryLipGloss();
           }));
         },
         child: Card(
@@ -60,18 +63,18 @@ class _CategoryState extends State<Category> {
             height: SizeConfig.screenHeight * 0.1,
             width: SizeConfig.screenWidth * 0.2,
             child: const Center(
-              child: Text('Hair'),
+              child: Text('Lip Gloss'),
             ),
           ),
         ),
       );
     }
 
-    Widget buildSkinIcon() {
+    Widget buildEyeLinerIcon() {
       return InkWell(
         onTap: () {
           Navigator.push(context, MaterialPageRoute(builder: (_) {
-            return const CategorySkin();
+            return const CategoryEyeLiner();
           }));
         },
         child: Card(
@@ -85,18 +88,18 @@ class _CategoryState extends State<Category> {
             height: SizeConfig.screenHeight * 0.1,
             width: SizeConfig.screenWidth * 0.2,
             child: const Center(
-              child: Text('Skin'),
+              child: Text('Eye Liner'),
             ),
           ),
         ),
       );
     }
 
-    Widget buildEyesIcon() {
+    Widget buildMascaraIcon() {
       return InkWell(
         onTap: () {
           Navigator.push(context, MaterialPageRoute(builder: (_) {
-            return const CategoryEyes();
+            return const CategoryMascara();
           }));
         },
         child: Card(
@@ -104,13 +107,88 @@ class _CategoryState extends State<Category> {
           shadowColor: ColorManager.kPrimaryColor,
           color: ColorManager.bgWhite,
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(20.0),
+            borderRadius: BorderRadius.circular(15.0),
           ),
           child: SizedBox(
             height: SizeConfig.screenHeight * 0.1,
             width: SizeConfig.screenWidth * 0.2,
             child: const Center(
-              child: Text('Eyes'),
+              child: Text('Mascara'),
+            ),
+          ),
+        ),
+      );
+    }
+
+    Widget buildFoundation() {
+      return InkWell(
+        onTap: () {
+          Navigator.push(context, MaterialPageRoute(builder: (_) {
+            return const CategoryFoundation();
+          }));
+        },
+        child: Card(
+          elevation: 10,
+          shadowColor: ColorManager.kPrimaryColor,
+          color: ColorManager.bgWhite,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(15.0),
+          ),
+          child: SizedBox(
+            height: SizeConfig.screenHeight * 0.1,
+            width: SizeConfig.screenWidth * 0.25,
+            child: const Center(
+              child: Text('Foundation'),
+            ),
+          ),
+        ),
+      );
+    }
+
+    Widget buildMoisturizer() {
+      return InkWell(
+        onTap: () {
+          Navigator.push(context, MaterialPageRoute(builder: (_) {
+            return const CategoryMoisturizer();
+          }));
+        },
+        child: Card(
+          elevation: 10,
+          shadowColor: ColorManager.kPrimaryColor,
+          color: ColorManager.bgWhite,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(15.0),
+          ),
+          child: SizedBox(
+            height: SizeConfig.screenHeight * 0.1,
+            width: SizeConfig.screenWidth * 0.25,
+            child: const Center(
+              child: Text('Moisturizer'),
+            ),
+          ),
+        ),
+      );
+    }
+
+    Widget buildSerum() {
+      return InkWell(
+        onTap: () {
+          Navigator.push(context, MaterialPageRoute(builder: (_) {
+            return const CategorySerum();
+          }));
+        },
+        child: Card(
+          elevation: 10,
+          shadowColor: ColorManager.kPrimaryColor,
+          color: ColorManager.bgWhite,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(15.0),
+          ),
+          child: SizedBox(
+            height: SizeConfig.screenHeight * 0.1,
+            width: SizeConfig.screenWidth * 0.25,
+            child: const Center(
+              child: Text('Serum'),
             ),
           ),
         ),
@@ -118,14 +196,31 @@ class _CategoryState extends State<Category> {
     }
 
     Widget buildCategory() {
-      return Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: <Widget>[
-          buildEyesIcon(),
-          buildLipIcon(),
-          buildHairIcon(),
-          buildSkinIcon(),
-        ],
+      return SingleChildScrollView(
+        scrollDirection: Axis.horizontal,
+        child: SizedBox(
+          height: SizeConfig.screenHeight * 0.3,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: <Widget>[
+              Row(
+                children: [
+                  buildLipStickIcon(),
+                  buildLipGlossIcon(),
+                  buildEyeLinerIcon(),
+                  buildMascaraIcon(),
+                ],
+              ),
+              Row(
+                children: [
+                  buildFoundation(),
+                  buildMoisturizer(),
+                  buildSerum(),
+                ],
+              )
+            ],
+          ),
+        ),
       );
     }
 
