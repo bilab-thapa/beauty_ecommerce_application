@@ -1,8 +1,8 @@
-import 'package:beauty_e_commerce/presentation/resources/assets_manager.dart';
 import 'package:beauty_e_commerce/presentation/resources/color_manager.dart';
 import 'package:beauty_e_commerce/presentation/resources/size_config.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:lottie/lottie.dart';
 
 import '../resources/routes_manager.dart';
 import '../widgets/default_button.dart';
@@ -22,7 +22,7 @@ class SuccessScreen extends StatelessWidget {
         ),
       ),
       body: Container(
-        color: Colors.green.shade400,
+        color: Colors.white,
         height: SizeConfig.screenHeight,
         width: SizeConfig.screenWidth,
         child: Column(
@@ -36,12 +36,19 @@ class SuccessScreen extends StatelessWidget {
                     color: ColorManager.kPrimaryColor, fontSize: 28),
               ),
             ),
-            const Spacer(),
-            Image.asset(
-              ImageAssets.successImage,
+            SizedBox(
+              height: SizeConfig.screenHeight * 0.6,
+              child: Stack(
+                children: [
+                  Lottie.network(
+                      'https://assets2.lottiefiles.com/packages/lf20_lg6lh7fp.json'),
+                  Lottie.network(
+                      'https://assets2.lottiefiles.com/packages/lf20_pqnfmone.json')
+                ],
+              ),
             ),
-            const Spacer(),
             DefaultButton(
+              color: ColorManager.kPrimaryColor,
               text: 'HomeScreen',
               press: () {
                 Navigator.pushNamed(context, Routes.homeScreenRoute);
