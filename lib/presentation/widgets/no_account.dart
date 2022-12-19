@@ -19,7 +19,7 @@ class NoAccountText extends StatelessWidget {
           AppStrings.noAccount,
           style: TextStyle(
               fontSize: getProportionateScreenWidth(16),
-              color: ColorManager.white),
+              color: ColorManager.black),
         ),
         SizedBox(
           width: getProportionateScreenWidth(10),
@@ -32,7 +32,7 @@ class NoAccountText extends StatelessWidget {
             AppStrings.signUp,
             style: TextStyle(
                 fontSize: getProportionateScreenWidth(16),
-                color: ColorManager.black),
+                color: ColorManager.kPrimaryColor),
           ),
         ),
       ],
@@ -54,7 +54,7 @@ class YesAccountText extends StatelessWidget {
           AppStrings.yesAccount,
           style: TextStyle(
               fontSize: getProportionateScreenWidth(16),
-              color: ColorManager.white),
+              color: ColorManager.black),
         ),
         SizedBox(
           width: getProportionateScreenWidth(10),
@@ -67,7 +67,7 @@ class YesAccountText extends StatelessWidget {
             AppStrings.signIn,
             style: TextStyle(
                 fontSize: getProportionateScreenWidth(16),
-                color: ColorManager.black),
+                color: ColorManager.kPrimaryColor),
           ),
         ),
       ],

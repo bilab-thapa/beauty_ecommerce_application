@@ -75,8 +75,8 @@ class BannerBodyState extends State<BannerBody> {
       width: introScreenController.currentPage.value == index ? 20 : 6,
       decoration: BoxDecoration(
         color: introScreenController.currentPage.value == index
-            ? ColorManager.kSecondaryColor
-            : ColorManager.kSecondaryTextColor,
+            ? ColorManager.kPrimaryColor
+            : ColorManager.black,
         borderRadius: BorderRadius.circular(3),
       ),
     );
