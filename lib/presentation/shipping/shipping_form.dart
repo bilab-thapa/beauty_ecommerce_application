@@ -1,16 +1,17 @@
 import 'package:beauty_e_commerce/models/shipping_model.dart';
-import 'package:beauty_e_commerce/presentation/resources/color_manager.dart';
 import 'package:beauty_e_commerce/presentation/resources/size_config.dart';
-import 'package:beauty_e_commerce/presentation/widgets/default_button.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:khalti_flutter/khalti_flutter.dart';
+import 'package:lottie/lottie.dart';
 
 import '../../controller/data_controller.dart';
 import '../../models/cart_model.dart';
 import '../helper/keyboard_util.dart';
+import '../resources/color_manager.dart';
 import '../resources/routes_manager.dart';
+import '../widgets/default_button.dart';
 
 class CheckoutForm extends StatefulWidget {
   const CheckoutForm({super.key});
@@ -39,131 +40,134 @@ class _CheckoutFormState extends State<CheckoutForm> {
           productName: result.productName,
           image: result.image));
     }
-    return SingleChildScrollView(
-      child: GestureDetector(
-        onTap: () => KeyboardUtil.hideKeyboard(context),
-        child: SizedBox(
-          height: SizeConfig.screenHeight * 0.8,
-          width: SizeConfig.screenWidth,
-          child: Card(
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(20),
-            ),
-            child: Form(
-              key: _formKey,
-              child: Column(
-                children: [
-                  SizedBox(
-                    height: SizeConfig.screenHeight * 0.05,
-                  ),
-                  SizedBox(
-                    width: SizeConfig.screenWidth * 0.9,
-                    height: SizeConfig.screenHeight * 0.1,
-                    child: TextFormField(
-                      controller: firstNameController,
-                      decoration: const InputDecoration(
-                        labelText: 'First Name',
-                        border: OutlineInputBorder(),
-                      ),
-                    ),
-                  ),
-                  SizedBox(
-                    width: SizeConfig.screenWidth * 0.9,
-                    height: SizeConfig.screenHeight * 0.1,
-                    child: TextFormField(
-                      controller: lastNameController,
-                      decoration: const InputDecoration(
-                        labelText: 'Last Name',
-                        border: OutlineInputBorder(),
-                      ),
-                    ),
-                  ),
-                  SizedBox(
-                    width: SizeConfig.screenWidth * 0.9,
-                    height: SizeConfig.screenHeight * 0.1,
-                    child: TextFormField(
-                      controller: cityController,
-                      decoration: const InputDecoration(
-                        labelText: 'City',
-                        border: OutlineInputBorder(),
-                      ),
-                    ),
-                  ),
-                  SizedBox(
-                    width: SizeConfig.screenWidth * 0.9,
-                    height: SizeConfig.screenHeight * 0.1,
-                    child: TextFormField(
-                      controller: addressController,
-                      decoration: const InputDecoration(
-                        labelText: 'Address',
-                        border: OutlineInputBorder(),
-                      ),
-                    ),
-                  ),
-                  SizedBox(
-                    width: SizeConfig.screenWidth * 0.9,
-                    height: SizeConfig.screenHeight * 0.1,
-                    child: TextFormField(
-                      controller: phoneNumber,
-                      keyboardType: TextInputType.number,
-                      decoration: const InputDecoration(
-                        labelText: 'Phone Number',
-                        border: OutlineInputBorder(),
-                      ),
-                    ),
-                  ),
-                  Material(
-                    elevation: 10,
-                    borderRadius: BorderRadius.circular(20),
-                    child: Container(
-                      height: SizeConfig.screenHeight * 0.2,
-                      width: SizeConfig.screenWidth * 0.9,
-                      decoration: BoxDecoration(
-                          boxShadow: <BoxShadow>[
-                            BoxShadow(
-                              color: ColorManager.kPrimaryColor,
-                              blurRadius: 30,
-                              offset: const Offset(0, 10),
+    return GestureDetector(
+      onTap: () => KeyboardUtil.hideKeyboard(context),
+      child: SizedBox(
+        height: SizeConfig.screenHeight,
+        width: SizeConfig.screenWidth,
+        child: SingleChildScrollView(
+          child: Form(
+            key: _formKey,
+            child: Column(
+              children: [
+                SizedBox(
+                  height: SizeConfig.screenHeight * 0.3,
+                  child: Lottie.network(
+                      'https://assets4.lottiefiles.com/packages/lf20_eop7ymay.json'),
+                ),
+                SizedBox(
+                  height: SizeConfig.screenHeight * 0.3,
+                  child: SingleChildScrollView(
+                    child: Column(
+                      children: [
+                        SizedBox(
+                          height: SizeConfig.screenHeight * 0.01,
+                        ),
+                        SizedBox(
+                          width: SizeConfig.screenWidth * 0.9,
+                          height: SizeConfig.screenHeight * 0.1,
+                          child: TextFormField(
+                            controller: firstNameController,
+                            decoration: const InputDecoration(
+                              labelText: 'First Name',
+                              border: OutlineInputBorder(),
                             ),
-                          ],
-                          color: ColorManager.kSecondaryColor,
-                          border: Border.all(
+                          ),
+                        ),
+                        SizedBox(
+                          width: SizeConfig.screenWidth * 0.9,
+                          height: SizeConfig.screenHeight * 0.1,
+                          child: TextFormField(
+                            controller: lastNameController,
+                            decoration: const InputDecoration(
+                              labelText: 'Last Name',
+                              border: OutlineInputBorder(),
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                          width: SizeConfig.screenWidth * 0.9,
+                          height: SizeConfig.screenHeight * 0.1,
+                          child: TextFormField(
+                            controller: cityController,
+                            decoration: const InputDecoration(
+                              labelText: 'City',
+                              border: OutlineInputBorder(),
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                          width: SizeConfig.screenWidth * 0.9,
+                          height: SizeConfig.screenHeight * 0.1,
+                          child: TextFormField(
+                            controller: addressController,
+                            decoration: const InputDecoration(
+                              labelText: 'Address',
+                              border: OutlineInputBorder(),
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                          width: SizeConfig.screenWidth * 0.9,
+                          height: SizeConfig.screenHeight * 0.1,
+                          child: TextFormField(
+                            controller: phoneNumber,
+                            keyboardType: TextInputType.number,
+                            decoration: const InputDecoration(
+                              labelText: 'Phone Number',
+                              border: OutlineInputBorder(),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: SizeConfig.screenHeight * 0.07,
+                ),
+                Material(
+                  elevation: 10,
+                  borderRadius: BorderRadius.circular(20),
+                  child: Container(
+                    height: SizeConfig.screenHeight * 0.2,
+                    width: SizeConfig.screenWidth * 0.9,
+                    decoration: BoxDecoration(
+                        color: ColorManager.white,
+                        borderRadius:
+                            const BorderRadius.all(Radius.circular(20))),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          'Your Total',
+                          style: GoogleFonts.poppins(
+                              color: ColorManager.black, fontSize: 28),
+                        ),
+                        Text(
+                          controller.cartTotal().toString(),
+                          style: GoogleFonts.poppins(
+                              fontWeight: FontWeight.bold,
+                              color: ColorManager.black,
+                              fontSize: 34),
+                        ),
+                        SizedBox(
+                          width: SizeConfig.screenWidth * 0.8,
+                          child: DefaultButton(
                             color: ColorManager.kPrimaryColor,
+                            text: 'Continue to Payment',
+                            press: () {
+                              if (_formKey.currentState!.validate()) {
+                                vaildation();
+                              }
+                            },
                           ),
-                          borderRadius:
-                              const BorderRadius.all(Radius.circular(20))),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            'Your Total Price',
-                            style: GoogleFonts.poppins(
-                                color: ColorManager.kTextColor, fontSize: 28),
-                          ),
-                          Text(
-                            controller.cartTotal().toString(),
-                            style: GoogleFonts.poppins(
-                                fontWeight: FontWeight.bold,
-                                color: ColorManager.kPrimaryColor,
-                                fontSize: 28),
-                          ),
-                          SizedBox(
-                            width: SizeConfig.screenWidth * 0.8,
-                            child: DefaultButton(
-                              text: 'Continue to Payment',
-                              press: () {
-                                if (_formKey.currentState!.validate()) {
-                                  vaildation();
-                                }
-                              },
-                            ),
-                          )
-                        ],
-                      ),
+                        )
+                      ],
                     ),
-                  )
-                ],
-              ),
+                  ),
+                )
+              ],
             ),
           ),
         ),
@@ -196,7 +200,7 @@ class _CheckoutFormState extends State<CheckoutForm> {
             'vendor': 'Khalti Bazaar',
           },
           mobile: '9810345454',
-          mobileReadOnly: true,
+          // mobileReadOnly: false,
         ),
         preferences: [
           PaymentPreference.khalti,
