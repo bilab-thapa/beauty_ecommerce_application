@@ -3,11 +3,13 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
 
 class AboutUsPage extends StatefulWidget {
+  const AboutUsPage({super.key});
+
   @override
-  _AboutUsPageState createState() => _AboutUsPageState();
+  AboutUsPageState createState() => AboutUsPageState();
 }
 
-class _AboutUsPageState extends State<AboutUsPage> {
+class AboutUsPageState extends State<AboutUsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

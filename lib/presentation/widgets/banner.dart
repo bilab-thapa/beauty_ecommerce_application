@@ -37,8 +37,8 @@ class BannerBodyState extends State<BannerBody> {
   Widget build(BuildContext context) {
     return SizedBox(
       // decoration: BoxDecoration(borderRadius: BorderRadius.circular(20)),
-      width: double.infinity,
-      height: 250,
+      width: SizeConfig.screenWidth,
+      height: SizeConfig.screenHeight * 0.3,
       child: Column(
         children: <Widget>[
           SizedBox(height: SizeConfig.screenHeight * 0.02),

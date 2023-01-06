@@ -30,6 +30,7 @@ class _ProfileImageState extends State<ProfileImage> {
     }
     _formKey.currentState!.save();
     controller.addProfileImage(_userImageFile);
+    Get.snackbar('Success', 'Image Changed', snackPosition: SnackPosition.TOP);
   }
 
   @override
@@ -46,6 +47,7 @@ class _ProfileImageState extends State<ProfileImage> {
               DefaultButton(
                 text: 'Update Image',
                 press: addImage,
+                color: ColorManager.black,
               ),
             ],
           ),
@@ -147,9 +149,12 @@ class _UserImagePickerState extends State<UserImagePicker> {
             width: 100,
             height: 100,
             child: pickedImage != null
-                ? Image.file(
-                    pickedImage!,
-                    fit: BoxFit.cover,
+                ? DecoratedBox(
+                    decoration: BoxDecoration(border: Border.all()),
+                    child: Image.file(
+                      pickedImage!,
+                      fit: BoxFit.contain,
+                    ),
                   )
                 : Image.network(
                     'https://static.thenounproject.com/png/2413564-200.png',

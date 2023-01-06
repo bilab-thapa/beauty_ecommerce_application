@@ -32,8 +32,8 @@ InputDecorationTheme inputDecorationTheme() {
 
 TextTheme textTheme() {
   return TextTheme(
-    bodyText1: GoogleFonts.poppins(color: ColorManager.kTextColor),
-    bodyText2: GoogleFonts.poppins(color: ColorManager.kSecondaryTextColor),
+    bodyText1: GoogleFonts.comfortaa(color: ColorManager.kTextColor),
+    bodyText2: GoogleFonts.comfortaa(color: ColorManager.black),
   );
 }
 

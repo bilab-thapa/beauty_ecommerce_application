@@ -199,7 +199,7 @@ class _CheckoutFormState extends State<CheckoutForm> {
           additionalData: {
             'vendor': 'Khalti Bazaar',
           },
-          mobile: '9810345454',
+          // mobile: '9810345454',
           // mobileReadOnly: false,
         ),
         preferences: [

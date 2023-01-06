@@ -5,6 +5,7 @@ class UserModel {
   String? userAddress;
   String? userId;
   String? userImage;
+  String? role;
 
   UserModel(
       {this.userId,
@@ -12,5 +13,6 @@ class UserModel {
       required this.userName,
       required this.userAddress,
       required this.userGender,
-      this.userImage});
+      this.userImage,
+      this.role});
 }

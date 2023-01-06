@@ -8,10 +8,12 @@ class SignInScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration:
-          const BoxDecoration(gradient: ColorManager.kPrimaryGradientColor),
+      decoration: const BoxDecoration(
+          // image: DecorationImage(
+          //     image: AssetImage(ImageAssets.bgimage), fit: BoxFit.fill),
+          gradient: ColorManager.kPrimaryGradientColor),
       child: const Scaffold(
-        backgroundColor: Colors.transparent,
+        backgroundColor: Colors.white,
         body: SignInBody(),
       ),
     );

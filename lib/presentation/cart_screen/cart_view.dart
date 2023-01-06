@@ -1,3 +1,4 @@
+import 'package:beauty_e_commerce/presentation/resources/color_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -16,18 +17,18 @@ class CartScreen extends StatelessWidget {
       appBar: AppBar(
         title: Text(
           "Cart",
-          style: GoogleFonts.poppins(color: Colors.white, fontSize: 28),
+          style: GoogleFonts.comfortaa(color: Colors.white, fontSize: 28),
         ),
         actions: <Widget>[
-          IconButton(
-            icon: const Icon(
-              Icons.format_list_numbered_rtl_outlined,
-              color: Colors.white,
-            ),
-            onPressed: () {
-              Navigator.pushNamed(context, Routes.history);
-            },
-          )
+          TextButton(
+              onPressed: () {
+                Navigator.pushNamed(context, Routes.history);
+              },
+              child: Text(
+                'History',
+                style: GoogleFonts.comfortaa(
+                    fontSize: 18, color: ColorManager.kTextColor),
+              ))
         ],
         centerTitle: true,
       ),
@@ -44,7 +45,6 @@ class CartScreen extends StatelessWidget {
                 ),
         ),
       ]),
-      // drawer: const DrawerWidget(),
     );
   }
 }

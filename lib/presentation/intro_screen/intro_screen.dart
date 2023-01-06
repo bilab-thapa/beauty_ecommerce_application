@@ -11,7 +11,7 @@ class IntroScreen extends StatelessWidget {
     SizeConfig().init(context);
 
     return Container(
-      decoration: BoxDecoration(color: ColorManager.kSecondaryColor),
+      decoration: BoxDecoration(color: ColorManager.kPrimaryColor),
       child: const Scaffold(
         backgroundColor: Colors.transparent,
         body: IntroScreenBody(),

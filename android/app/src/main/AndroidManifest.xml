@@ -2,9 +2,9 @@
     package="com.example.beauty_e_commerce">
     <uses-permission android:name="android.permission.INTERNET"/>
    <application
-        android:label="beauty_e_commerce"
+        android:label="Beauty Fairy"
         android:name="${applicationName}"
-        android:icon="@mipmap/ic_launcher">
+        android:icon="@mipmap/launcher_icon">
         <activity
             android:name=".MainActivity"
             android:exported="true"
