@@ -1,15 +1,16 @@
 import 'package:beauty_e_commerce/controller/data_controller.dart';
-import 'package:beauty_e_commerce/presentation/category_view/category_home.dart';
-import 'package:beauty_e_commerce/presentation/home_screen/components/special_for_you.dart';
+import 'package:beauty_e_commerce/presentation/home_screen/components/footer.dart';
 import 'package:beauty_e_commerce/presentation/resources/color_manager.dart';
 import 'package:beauty_e_commerce/presentation/resources/size_config.dart';
-import 'package:beauty_e_commerce/presentation/widgets/banner.dart';
 import 'package:beauty_e_commerce/presentation/widgets/drawer.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../category_view/category_home.dart';
 import '../resources/routes_manager.dart';
+import '../widgets/banner.dart';
+import 'components/special_for_you.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -38,9 +39,10 @@ class _HomeScreenState extends State<HomeScreen> {
         backgroundColor: Colors.transparent,
         key: key,
         appBar: AppBar(
+          elevation: 10,
           title: Text(
             "HomeScreen",
-            style: GoogleFonts.poppins(color: Colors.white, fontSize: 28),
+            style: GoogleFonts.comfortaa(color: Colors.white, fontSize: 28),
           ),
           actions: <Widget>[
             IconButton(
@@ -63,25 +65,52 @@ class _HomeScreenState extends State<HomeScreen> {
             child: Column(
               children: <Widget>[
                 SizedBox(height: SizeConfig.screenHeight * 0.01),
+                InkWell(
+                  onTap: () {
+                    Navigator.pushNamed(context, Routes.search);
+                  },
+                  child: SizedBox(
+                    height: SizeConfig.screenHeight * 0.07,
+                    child: Card(
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20)),
+                      elevation: 10,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            'Search',
+                            style: GoogleFonts.comfortaa(
+                                color: Colors.black, fontSize: 24),
+                          ),
+                          SizedBox(width: SizeConfig.screenWidth * 0.05),
+                          const Icon(
+                            Icons.search,
+                            size: 28,
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+
                 const BannerBody(),
                 SizedBox(height: SizeConfig.screenHeight * 0.01),
-                const Text(
-                  'Category',
-                  style: TextStyle(fontSize: 26, fontWeight: FontWeight.bold),
-                ),
+
                 const Category(),
                 SizedBox(height: SizeConfig.screenHeight * 0.02),
                 const Text(
-                  'Special For You',
+                  'Popular Products',
                   style: TextStyle(fontSize: 26, fontWeight: FontWeight.bold),
                 ),
                 SizedBox(height: SizeConfig.screenHeight * 0.01),
-                const SizedBox(
-                  height: 240,
-                  width: double.infinity,
-                  child: SpecialForYou(),
-                ),
-                SizedBox(height: SizeConfig.screenHeight * 0.02),
+
+                const PopularProducts(),
+                SizedBox(height: SizeConfig.screenHeight * 0.04),
+
+                SizedBox(
+                    height: SizeConfig.screenHeight * 0.2,
+                    child: const HomeFooter())
                 // PopularProducts()
               ],
             ),

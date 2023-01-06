@@ -8,16 +8,16 @@ import '../../../models/product_model.dart';
 import '../../resources/color_manager.dart';
 import '../../resources/size_config.dart';
 
-class SpecialForYou extends StatefulWidget {
-  const SpecialForYou({super.key});
+class PopularProducts extends StatefulWidget {
+  const PopularProducts({super.key});
 
   @override
-  State<SpecialForYou> createState() => _SpecialForYouState();
+  State<PopularProducts> createState() => _PopularProductsState();
 }
 
 Product? special;
 
-class _SpecialForYouState extends State<SpecialForYou> {
+class _PopularProductsState extends State<PopularProducts> {
   final DataController controller = Get.find();
   @override
   Widget build(BuildContext context) {
@@ -29,12 +29,13 @@ class _SpecialForYouState extends State<SpecialForYou> {
           ? const Center(
               child: Text('Loading.......'),
             )
-          : ListView.builder(
-              scrollDirection: Axis.horizontal,
-              itemCount: controller.specialProducts.length,
-              itemBuilder: (context, index) {
-                return Center(
-                  child: InkWell(
+          : SizedBox(
+              height: SizeConfig.screenHeight * 0.3,
+              child: ListView.builder(
+                scrollDirection: Axis.horizontal,
+                itemCount: controller.specialProducts.length,
+                itemBuilder: (context, index) {
+                  return InkWell(
                       onTap: () {
                         Navigator.push(context, MaterialPageRoute(builder: (_) {
                           return DetailScreen(
@@ -43,189 +44,99 @@ class _SpecialForYouState extends State<SpecialForYou> {
                       },
                       child: CarouselSlider.builder(
                         options: CarouselOptions(
-                          autoPlay: true,
-                          viewportFraction: 1,
-                        ),
+                            autoPlay: true,
+                            viewportFraction: 0.95,
+                            padEnds: false),
                         itemCount: index,
                         itemBuilder: (context, index, realIndex) {
-                          return Card(
-                              elevation: 1,
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(15.0)),
-                              child: Row(children: [
-                                SizedBox(
-                                  height: 180,
-                                  width: SizeConfig.screenWidth * 0.5,
-                                  child: ClipRRect(
-                                    borderRadius: BorderRadius.circular(10),
-                                    child: Hero(
-                                      tag: controller
-                                          .specialProducts[index].productId
-                                          .toString(),
-                                      child: Image.network(
-                                        controller.specialProducts[index]
-                                            .productImage,
-                                        fit: BoxFit.fill,
+                          return Container(
+                            width: SizeConfig.screenWidth,
+                            alignment: const Alignment(-1.5, -1.0),
+                            child: Card(
+                                elevation: 10,
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(15.0)),
+                                child: Row(children: [
+                                  Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: SizedBox(
+                                      height: SizeConfig.screenHeight * 0.3,
+                                      width: SizeConfig.screenWidth * 0.45,
+                                      child: ClipRRect(
+                                        borderRadius: BorderRadius.circular(10),
+                                        child: Hero(
+                                          tag: controller
+                                              .specialProducts[index].productId
+                                              .toString(),
+                                          child: Image.network(
+                                            controller.specialProducts[index]
+                                                .productImage,
+                                            fit: BoxFit.fill,
+                                          ),
+                                        ),
                                       ),
                                     ),
                                   ),
-                                ),
-                                Column(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  children: [
-                                    SizedBox(
-                                        height: SizeConfig.screenHeight * 0.02),
-                                    SizedBox(
-                                      width: SizeConfig.screenWidth * 0.5,
-                                      child: Text(
-                                        "${controller.specialProducts[index].productName.capitalizeFirst}",
-                                        style: TextStyle(
-                                            fontSize: 24,
-                                            fontWeight: FontWeight.bold,
-                                            color: ColorManager.black),
-                                      ),
+                                  Padding(
+                                    padding: const EdgeInsets.only(left: 5),
+                                    child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        SizedBox(
+                                            height:
+                                                SizeConfig.screenHeight * 0.02),
+                                        Container(
+                                          width: SizeConfig.screenWidth * 0.45,
+                                          decoration: BoxDecoration(
+                                              color: ColorManager.special,
+                                              borderRadius:
+                                                  const BorderRadius.only(
+                                                topLeft: Radius.circular(20),
+                                                bottomLeft: Radius.circular(20),
+                                              )),
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(10),
+                                            child: Text(
+                                              "${controller.specialProducts[index].productName.capitalizeFirst}",
+                                              style: TextStyle(
+                                                  fontSize: 24,
+                                                  fontWeight: FontWeight.bold,
+                                                  color: ColorManager.black),
+                                            ),
+                                          ),
+                                        ),
+                                        SizedBox(
+                                            height:
+                                                SizeConfig.screenHeight * 0.01),
+                                        Container(
+                                          decoration: BoxDecoration(
+                                              color: ColorManager.kPrimaryColor,
+                                              borderRadius:
+                                                  BorderRadius.circular(20)),
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(8.0),
+                                            child: Text(
+                                              'Rs ${controller.specialProducts[index].productPrice.toStringAsFixed(0)}',
+                                              style: TextStyle(
+                                                  fontSize: 24,
+                                                  fontWeight: FontWeight.bold,
+                                                  color: ColorManager.white),
+                                            ),
+                                          ),
+                                        )
+                                      ],
                                     ),
-                                    SizedBox(
-                                        height: SizeConfig.screenHeight * 0.01),
-                                    Text(
-                                      'Price: ${controller.specialProducts[index].productPrice.toStringAsFixed(0)}',
-                                      style: TextStyle(
-                                          fontSize: 24,
-                                          fontWeight: FontWeight.bold,
-                                          color: ColorManager.black),
-                                    ),
-                                  ],
-                                ),
-                              ]));
+                                  ),
+                                ])),
+                          );
                         },
-                      )),
-                );
-              },
+                      ));
+                },
+              ),
             ),
     );
-
-    // Column(
-    //   children: [
-    //     Row(
-    //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-    //       children: const [
-    //         Text(
-    //           AppStrings.specialForYou,
-    //           style: TextStyle(fontSize: 26),
-    //         ),
-    //         InkWell(
-    //           child: Text(
-    //             AppStrings.seeMoreText,
-    //             style: TextStyle(fontSize: 16),
-    //           ),
-    //         ),
-    //       ],
-    //     ),
-    //     SizedBox(height: SizeConfig.screenHeight * 0.01),
-    //     SingleChildScrollView(
-    //       scrollDirection: Axis.horizontal,
-    //       child: Padding(
-    //         padding: const EdgeInsets.symmetric(horizontal: 15),
-    //         child: Row(
-    //           children: [
-    //             Container(
-    //               height: getProportionateScreenHeight(180),
-    //               width: getProportionateScreenWidth(150),
-    //               decoration: BoxDecoration(
-    //                   color: ColorManager.bgWhite,
-    //                   borderRadius: BorderRadius.circular(30)),
-    //               child: Stack(
-    //                 children: [
-    //                   Positioned.fill(
-    //                     top: getProportionateScreenHeight(1),
-    //                     child: ClipRRect(
-    //                       borderRadius: BorderRadius.circular(30),
-    //                       child: Image.asset(
-    //                         ImageAssets.applePay,
-    //                         fit: BoxFit.contain,
-    //                       ),
-    //                     ),
-    //                   ),
-    //                   Positioned(
-    //                     left: 30,
-    //                     bottom: 0,
-    //                     child: Column(
-    //                       children: [
-    //                         Text(
-    //                           'Smartphone',
-    //                           style: TextStyle(
-    //                             color: ColorManager.kPrimaryColor,
-    //                             fontSize: 20,
-    //                             fontWeight: FontWeight.bold,
-    //                           ),
-    //                         ),
-    //                         const Text(
-    //                           '18 Brands',
-    //                           style: TextStyle(
-    //                             fontFamily: 'Muli',
-    //                             color: Colors.white,
-    //                             fontSize: 15,
-    //                           ),
-    //                         ),
-    //                       ],
-    //                     ),
-    //                   ),
-    //                 ],
-    //               ),
-    //             ),
-    //             const SizedBox(
-    //               width: 20,
-    //             ),
-    //             Container(
-    //               height: getProportionateScreenHeight(180),
-    //               width: getProportionateScreenWidth(150),
-    //               decoration: BoxDecoration(
-    //                   color: ColorManager.bgWhite,
-    //                   borderRadius: BorderRadius.circular(30)),
-    //               child: Stack(
-    //                 children: [
-    //                   Positioned.fill(
-    //                     top: getProportionateScreenHeight(1),
-    //                     child: ClipRRect(
-    //                       borderRadius: BorderRadius.circular(30),
-    //                       child: Image.asset(
-    //                         ImageAssets.applePay,
-    //                         fit: BoxFit.contain,
-    //                       ),
-    //                     ),
-    //                   ),
-    //                   Positioned(
-    //                     left: 30,
-    //                     bottom: 0,
-    //                     child: Column(
-    //                       children: [
-    //                         Text(
-    //                           'Smartphone',
-    //                           style: TextStyle(
-    //                             color: ColorManager.kPrimaryColor,
-    //                             fontSize: 20,
-    //                             fontWeight: FontWeight.bold,
-    //                           ),
-    //                         ),
-    //                         const Text(
-    //                           '18 Brands',
-    //                           style: TextStyle(
-    //                             fontFamily: 'Muli',
-    //                             color: Colors.white,
-    //                             fontSize: 15,
-    //                           ),
-    //                         ),
-    //                       ],
-    //                     ),
-    //                   ),
-    //                 ],
-    //               ),
-    //             ),
-    //           ],
-    //         ),
-    //       ),
-    //     )
-    //   ],
-    // );
   }
 }

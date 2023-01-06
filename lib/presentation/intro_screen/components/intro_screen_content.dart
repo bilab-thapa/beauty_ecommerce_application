@@ -30,10 +30,14 @@ class IntroScreenContent extends StatelessWidget {
         const Spacer(
           flex: 2,
         ),
-        Image.asset(
-          image!,
-          height: getProportionateScreenHeight(265),
-          width: getProportionateScreenWidth(235),
+        CircleAvatar(
+          radius: SizeConfig.screenHeight * 0.25,
+          backgroundColor: ColorManager.white,
+          child: Image.asset(
+            image!,
+            height: getProportionateScreenHeight(250),
+            width: getProportionateScreenWidth(230),
+          ),
         )
       ],
     );

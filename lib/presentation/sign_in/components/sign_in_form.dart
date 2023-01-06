@@ -1,4 +1,5 @@
 import 'package:beauty_e_commerce/presentation/sign_in/sign_in_controller/sign_in_controller.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -25,6 +26,26 @@ class _SignInFormState extends State<SignInForm> {
   final passwordController = TextEditingController();
   bool passwordVisible = false;
   var uid;
+  String role = 'user';
+
+  checkRole() async {
+    User? user = FirebaseAuth.instance.currentUser;
+    final DocumentSnapshot snap = await FirebaseFirestore.instance
+        .collection('User')
+        .doc(user!.uid)
+        .get();
+
+    setState(() {
+      role = snap['role'];
+    });
+    debugPrint(role);
+    if (role == 'admin') {
+      Navigator.pushReplacementNamed(context, Routes.admin);
+    } else if (role == 'user') {
+      Navigator.pushReplacementNamed(context, Routes.homeScreenRoute);
+    }
+  }
+
   void submit(context) async {
     try {
       setState(() {
@@ -35,13 +56,10 @@ class _SignInFormState extends State<SignInForm> {
           .signInWithEmailAndPassword(
               email: emailController.text, password: passwordController.text);
       uid = result.user!.uid;
-      // debugPrint(uid);
-      Navigator.pushReplacementNamed(context, Routes.homeScreenRoute);
-    } on PlatformException catch (error) {
-      var message = "Please Check Your Internet Connection ";
-      if (error.message != null) {
-        message = error.message!;
-      }
+
+      await checkRole();
+    } on PlatformException {
+      Get.snackbar('Error', "Please Check Your Internet Connection ");
 
       setState(() {
         isLoading = false;
@@ -70,16 +88,16 @@ class _SignInFormState extends State<SignInForm> {
           SizedBox(height: getProportionateScreenHeight(30)),
           Row(
             children: [
-              Obx(
-                () => Checkbox(
-                  value: _signInController.remember!.value,
-                  activeColor: ColorManager.kPrimaryColor,
-                  onChanged: (value) {
-                    _signInController.changeRememberValue(value!);
-                  },
-                ),
-              ),
-              const Text(AppStrings.rememberMe),
+              // Obx(
+              //   () => Checkbox(
+              //     value: _signInController.remember!.value,
+              //     activeColor: ColorManager.kPrimaryColor,
+              //     onChanged: (value) {
+              //       _signInController.changeRememberValue(value!);
+              //     },
+              //   ),
+              // ),
+              // const Text(AppStrings.rememberMe),
               const Spacer(),
               GestureDetector(
                 onTap: () {
@@ -87,7 +105,6 @@ class _SignInFormState extends State<SignInForm> {
                 },
                 child: const Text(
                   AppStrings.forgotPassword,
-                  style: TextStyle(decoration: TextDecoration.underline),
                 ),
               )
             ],
@@ -100,6 +117,7 @@ class _SignInFormState extends State<SignInForm> {
                 submit(context);
               }
             },
+            color: ColorManager.kPrimaryColor,
           ),
         ],
       ),
@@ -116,7 +134,7 @@ class _SignInFormState extends State<SignInForm> {
           labelText: AppStrings.password,
           hintText: AppStrings.enterPassword,
           floatingLabelBehavior: FloatingLabelBehavior.always,
-          // focusColor: ColorManager.kPrimaryColor,
+          focusColor: ColorManager.kPrimaryColor,
           suffixIcon: InkWell(
             onTap: (() {
               _signInController.isObscureText.value =
@@ -140,6 +158,7 @@ class _SignInFormState extends State<SignInForm> {
       keyboardType: TextInputType.emailAddress,
       decoration: InputDecoration(
         labelText: AppStrings.email,
+        // labelStyle: TextStyle(color: ColorManager.kPrimaryColor),
         hintText: AppStrings.enterEmail,
         suffixIcon: Icon(
           Icons.email,

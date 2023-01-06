@@ -13,7 +13,7 @@ class ProfileScreen extends StatelessWidget {
       appBar: AppBar(
         title: Text(
           "Profile",
-          style: GoogleFonts.poppins(color: Colors.white, fontSize: 28),
+          style: GoogleFonts.comfortaa(color: Colors.white, fontSize: 28),
         ),
         centerTitle: true,
       ),

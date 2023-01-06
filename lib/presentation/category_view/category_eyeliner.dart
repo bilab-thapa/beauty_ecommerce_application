@@ -1,3 +1,4 @@
+import 'package:beauty_e_commerce/presentation/resources/routes_manager.dart';
 import 'package:beauty_e_commerce/presentation/resources/size_config.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -30,10 +31,12 @@ class CategoryEyeLiner extends StatelessWidget {
           actions: <Widget>[
             IconButton(
               icon: const Icon(
-                Icons.sort,
+                Icons.shopping_cart,
                 color: Colors.white,
               ),
-              onPressed: () {},
+              onPressed: () {
+                Navigator.pushNamed(context, Routes.cartView);
+              },
             )
           ],
         ),

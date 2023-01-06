@@ -17,11 +17,11 @@ class _HomeFooterState extends State<HomeFooter> {
   String mailUrl = 'mailto:thapabilab9@gmail.com';
   @override
   Widget build(BuildContext context) {
-    void _launchDailer() async {
+    void launchDailer() async {
       if (!await launchUrl(Uri.parse(telUrl))) throw 'Could not launch';
     }
 
-    void _launchMail() async {
+    void launchMail() async {
       if (!await launchUrl(Uri.parse(mailUrl))) throw 'Could not launch';
     }
 
@@ -53,7 +53,7 @@ class _HomeFooterState extends State<HomeFooter> {
                           ),
                           color: ColorManager.white,
                           onPressed: () {
-                            _launchMail();
+                            launchMail();
                           },
                         ),
                       ),
@@ -76,7 +76,7 @@ class _HomeFooterState extends State<HomeFooter> {
                           ),
                           color: ColorManager.white,
                           onPressed: () {
-                            _launchDailer();
+                            launchDailer();
                           },
                         ),
                       ),

@@ -28,7 +28,7 @@ class _CategoryState extends State<Category> {
           }));
         },
         child: Card(
-          elevation: 10,
+          elevation: 3,
           shadowColor: ColorManager.kPrimaryColor,
           color: ColorManager.bgWhite,
           shape: RoundedRectangleBorder(
@@ -53,7 +53,7 @@ class _CategoryState extends State<Category> {
           }));
         },
         child: Card(
-          elevation: 10,
+          elevation: 3,
           shadowColor: ColorManager.kPrimaryColor,
           color: ColorManager.bgWhite,
           shape: RoundedRectangleBorder(
@@ -78,7 +78,7 @@ class _CategoryState extends State<Category> {
           }));
         },
         child: Card(
-          elevation: 10,
+          elevation: 3,
           shadowColor: ColorManager.kPrimaryColor,
           color: ColorManager.bgWhite,
           shape: RoundedRectangleBorder(
@@ -103,7 +103,7 @@ class _CategoryState extends State<Category> {
           }));
         },
         child: Card(
-          elevation: 10,
+          elevation: 3,
           shadowColor: ColorManager.kPrimaryColor,
           color: ColorManager.bgWhite,
           shape: RoundedRectangleBorder(
@@ -128,7 +128,7 @@ class _CategoryState extends State<Category> {
           }));
         },
         child: Card(
-          elevation: 10,
+          elevation: 3,
           shadowColor: ColorManager.kPrimaryColor,
           color: ColorManager.bgWhite,
           shape: RoundedRectangleBorder(
@@ -153,7 +153,7 @@ class _CategoryState extends State<Category> {
           }));
         },
         child: Card(
-          elevation: 10,
+          elevation: 3,
           shadowColor: ColorManager.kPrimaryColor,
           color: ColorManager.bgWhite,
           shape: RoundedRectangleBorder(
@@ -178,7 +178,7 @@ class _CategoryState extends State<Category> {
           }));
         },
         child: Card(
-          elevation: 10,
+          elevation: 3,
           shadowColor: ColorManager.kPrimaryColor,
           color: ColorManager.bgWhite,
           shape: RoundedRectangleBorder(
@@ -214,8 +214,8 @@ class _CategoryState extends State<Category> {
               Row(
                 children: [
                   buildFoundation(),
-                  buildMoisturizer(),
                   buildSerum(),
+                  buildMoisturizer(),
                 ],
               )
             ],

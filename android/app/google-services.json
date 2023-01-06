@@ -30,35 +30,13 @@
             {
               "client_id": "152305990941-hbdun0usefqeljbj8tubsl4m8i7jssp6.apps.googleusercontent.com",
               "client_type": 3
-            }
-          ]
-        }
-      }
-    },
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:152305990941:android:4ff0a6880f46a5a013f5f4",
-        "android_client_info": {
-          "package_name": "com.example.lyonbeauty"
-        }
-      },
-      "oauth_client": [
-        {
-          "client_id": "152305990941-hbdun0usefqeljbj8tubsl4m8i7jssp6.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
-      "api_key": [
-        {
-          "current_key": "AIzaSyDjap9Wo50-Dp5dwZsm6OLdMzZO5HzXkb8"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": [
+            },
             {
-              "client_id": "152305990941-hbdun0usefqeljbj8tubsl4m8i7jssp6.apps.googleusercontent.com",
-              "client_type": 3
+              "client_id": "152305990941-mh45100do4vfees6qjcl3ri97eghrrh6.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.beautyECommerce"
+              }
             }
           ]
         }

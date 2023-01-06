@@ -35,6 +35,13 @@ class _SubTotalState extends State<SubTotal> {
           topLeft: Radius.circular(30),
           topRight: Radius.circular(30),
         ),
+        boxShadow: <BoxShadow>[
+          BoxShadow(
+            color: ColorManager.grey1,
+            blurRadius: 10,
+            offset: const Offset(0, -1),
+          ),
+        ],
       ),
       child: Stack(
         children: [
@@ -49,7 +56,7 @@ class _SubTotalState extends State<SubTotal> {
           ),
           Positioned(
             top: SizeConfig.screenWidth * 0.055,
-            left: SizeConfig.screenWidth * 0.7,
+            right: SizeConfig.screenWidth * 0.1,
             child: Text(
               controller.cartTotal().toString(),
               style: GoogleFonts.poppins(

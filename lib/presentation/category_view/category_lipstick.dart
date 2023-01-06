@@ -5,6 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 import '../../controller/data_controller.dart';
 import '../product_detail/detail_screen.dart';
 import '../resources/color_manager.dart';
+import '../resources/routes_manager.dart';
 
 class CategoryLipStick extends StatelessWidget {
   const CategoryLipStick({super.key});
@@ -29,10 +30,12 @@ class CategoryLipStick extends StatelessWidget {
           actions: <Widget>[
             IconButton(
               icon: const Icon(
-                Icons.sort,
+                Icons.shopping_cart,
                 color: Colors.white,
               ),
-              onPressed: () {},
+              onPressed: () {
+                Navigator.pushNamed(context, Routes.cartView);
+              },
             )
           ],
         ),
@@ -92,7 +95,7 @@ class CategoryLipStick extends StatelessWidget {
                                 "${controller.lipStick[index].productName.capitalizeFirst}",
                                 maxLines: 1,
                                 style: TextStyle(
-                                    fontSize: 14,
+                                    fontSize: 16,
                                     fontWeight: FontWeight.bold,
                                     color: ColorManager.black),
                               ),
@@ -105,7 +108,7 @@ class CategoryLipStick extends StatelessWidget {
                                     borderRadius: BorderRadius.circular(20)),
                                 child: Padding(
                                   padding: const EdgeInsets.symmetric(
-                                      horizontal: 10),
+                                      vertical: 5, horizontal: 10),
                                   child: Text(
                                     'Rs ${controller.lipStick[index].productPrice.toStringAsFixed(0)}',
                                     style: TextStyle(

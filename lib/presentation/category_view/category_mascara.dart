@@ -5,6 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 import '../../controller/data_controller.dart';
 import '../product_detail/detail_screen.dart';
 import '../resources/color_manager.dart';
+import '../resources/routes_manager.dart';
 
 class CategoryMascara extends StatelessWidget {
   const CategoryMascara({super.key});
@@ -30,10 +31,12 @@ class CategoryMascara extends StatelessWidget {
           actions: <Widget>[
             IconButton(
               icon: const Icon(
-                Icons.sort,
+                Icons.shopping_cart,
                 color: Colors.white,
               ),
-              onPressed: () {},
+              onPressed: () {
+                Navigator.pushNamed(context, Routes.cartView);
+              },
             )
           ],
         ),

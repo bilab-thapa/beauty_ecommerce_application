@@ -41,7 +41,7 @@ class IntroScreenBodyState extends State<IntroScreenBody> {
               ),
             ),
             Expanded(
-              flex: 2,
+              flex: 1,
               child: Padding(
                 padding: EdgeInsets.symmetric(
                     horizontal: getProportionateScreenWidth(20)),
@@ -55,13 +55,14 @@ class IntroScreenBodyState extends State<IntroScreenBody> {
                         (index) => Obx(() => buildDot(index: index)),
                       ),
                     ),
-                    const Spacer(flex: 3),
+                    const Spacer(flex: 1),
                     DefaultButton(
                       text: AppStrings.splashContinue,
                       press: () {
                         Navigator.pushReplacementNamed(
                             context, Routes.signInRoute);
                       },
+                      color: ColorManager.black,
                     ),
                     const Spacer(),
                   ],
@@ -82,7 +83,7 @@ class IntroScreenBodyState extends State<IntroScreenBody> {
       width: introScreenController.currentPage.value == index ? 20 : 6,
       decoration: BoxDecoration(
         color: introScreenController.currentPage.value == index
-            ? ColorManager.kPrimaryColor
+            ? ColorManager.black
             : ColorManager.kTextColor,
         borderRadius: BorderRadius.circular(3),
       ),

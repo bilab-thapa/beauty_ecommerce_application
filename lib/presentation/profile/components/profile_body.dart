@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:lottie/lottie.dart';
 
 import '../../resources/color_manager.dart';
 import '../../resources/routes_manager.dart';
@@ -32,6 +33,7 @@ class ProfileBody extends StatelessWidget {
               children: snapshot.data!.docs.map((DocumentSnapshot document) {
                 data = document.data()! as Map<String, dynamic>;
                 return Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     CircleAvatar(
                       radius: 80,
@@ -39,25 +41,46 @@ class ProfileBody extends StatelessWidget {
                     ),
                     Text(
                       data!['userName'],
-                      style: GoogleFonts.poppins(
+                      style: GoogleFonts.comfortaa(
                         color: ColorManager.black,
                         fontSize: 28,
                       ),
                     ),
                     Text(
                       data!['userEmail'],
-                      style: GoogleFonts.poppins(
+                      style: GoogleFonts.comfortaa(
                         color: ColorManager.black,
                         fontSize: 20,
                       ),
                     ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        SizedBox(
+                          height: SizeConfig.screenHeight * 0.1,
+                          child: Lottie.network(
+                              'https://assets1.lottiefiles.com/private_files/lf30_u4mgmpw4.json'),
+                        ),
+                        CircleAvatar(
+                          radius: 25,
+                          backgroundColor: ColorManager.kPrimaryColor,
+                          child: Text(
+                            data!['points'].toString(),
+                            style: GoogleFonts.comfortaa(
+                              fontWeight: FontWeight.bold,
+                              color: ColorManager.white,
+                              fontSize: 20,
+                            ),
+                          ),
+                        ),
+                      ],
+                    )
                   ],
                 );
               }).toList(),
             );
           },
         ),
-        SizedBox(height: SizeConfig.screenHeight * 0.02),
         ProfileMenu(
           text: "Edit Account",
           icon: "assets/icons/User Icon.svg",
@@ -67,11 +90,6 @@ class ProfileBody extends StatelessWidget {
           text: "History",
           icon: "assets/icons/Bell.svg",
           press: () => {Navigator.pushNamed(context, Routes.history)},
-        ),
-        ProfileMenu(
-          text: "Settings",
-          icon: "assets/icons/Settings.svg",
-          press: () {},
         ),
         ProfileMenu(
           text: "Help Center",
@@ -87,6 +105,7 @@ class ProfileBody extends StatelessWidget {
                 context, Routes.signInRoute, (Route<dynamic> route) => false);
           },
         ),
+        const Spacer(),
       ],
     );
   }
